@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserva tu sesión de 45 min · Stratoos</title>
+<meta name="description" content="45 minutos sobre tu LMS y tu caso concreto. Respuesta en 24 h laborables. Propuesta en 48 h.">
+
+<!--
+  Formulario captación · aparte de la landing · v1 · 22 jul 2026
+  Diseño: continuidad de marca con index.html
+  Reglas: sin distracciones (nav mínima), cero enlaces salientes salvo volver a landing
+  Message match con landing: mismo H1 pattern, mismos 3 compromisos
+  Cuando exista backend/CRM: sustituir action del form
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --burdeos: #7E2437;
+    --burdeos-hover: #6A1E2E;
+    --burdeos-deep: #3C121E;
+    --dorado: #D9A452;
+    --dorado-hover: #C08F3E;
+    --dorado-deep: #8C5A10;
+    --cloud: #F0EEE9;
+    --papel: #FBF8F3;
+    --papel-warm: #F6F2EA;
+    --tinta: #14100E;
+    --tinta-2: #3A342F;
+    --tinta-3: #6B655F;
+    --tinta-4: #A29C95;
+    --border-subtle: #E6E1D8;
+    --border-warm: #DCD2BC;
+
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+    --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+    --shadow-sm: 0 1px 2px rgba(20,16,14,0.06), 0 1px 1px rgba(20,16,14,0.04);
+    --shadow-md: 0 6px 16px -4px rgba(20,16,14,0.10), 0 2px 4px -2px rgba(20,16,14,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--papel-warm); color: var(--tinta); font-family: var(--font-sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--burdeos); text-decoration: none; }
+  a:hover { color: var(--burdeos-hover); }
+
+  .kicker-row { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; }
+  .bicolor { display: inline-flex; }
+  .bicolor > span { display: block; width: 22px; height: 4px; }
+  .bicolor > span:first-child { background: var(--burdeos); border-radius: 2px 0 0 2px; }
+  .bicolor > span:last-child { background: var(--dorado-deep); border-radius: 0 2px 2px 0; }
+  .bicolor.on-dark > span:first-child { background: var(--dorado); }
+  .bicolor.on-dark > span:last-child { background: rgba(240,238,233,0.4); }
+  .kicker { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--burdeos); }
+  .kicker.on-dark { color: var(--dorado); }
+
+  /* NAV MÍNIMA — solo wordmark + volver */
+  nav.top { background: var(--burdeos-deep); border-bottom: 1px solid rgba(240,238,233,0.14); }
+  nav.top .inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; color: var(--cloud); font-size: 14px; }
+  nav.top .wordmark { display: flex; align-items: center; gap: 14px; color: var(--cloud); }
+  nav.top .wordmark .text { font-family: var(--font-display); font-size: 22px; color: var(--cloud); line-height: 1; }
+  nav.top .divider { width: 1px; height: 18px; background: rgba(240,238,233,0.3); }
+  nav.top .sub { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,238,233,0.5); }
+  nav.top a.back { color: rgba(240,238,233,0.7); font-size: 13.5px; }
+  nav.top a.back:hover { color: var(--cloud); }
+
+  /* MAIN */
+  main.form-page { max-width: 1240px; margin: 0 auto; padding: 72px 32px 96px; display: grid; grid-template-columns: 1fr 1.15fr; gap: 72px; align-items: start; }
+
+  main.form-page .left h1 { margin: 0 0 16px; font-family: var(--font-display); font-weight: 400; font-size: clamp(38px, 4.4vw, 52px); line-height: 1.08; color: var(--tinta); }
+  main.form-page .left h1 em { font-style: italic; color: var(--burdeos); }
+  main.form-page .left .lede { margin: 0 0 32px; font-size: 17px; line-height: 1.65; color: var(--tinta-2); max-width: 52ch; }
+
+  .promises { display: flex; flex-direction: column; }
+  .promise { display: flex; gap: 18px; padding: 20px 0; border-top: 1px solid var(--border-subtle); }
+  .promise:last-child { border-bottom: 1px solid var(--border-subtle); }
+  .promise .n { font-family: var(--font-mono); font-size: 13px; color: var(--burdeos); padding-top: 2px; font-weight: 500; }
+  .promise h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; color: var(--tinta); }
+  .promise p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--tinta-3); }
+
+  .badge { margin-top: 28px; background: var(--burdeos-deep); color: var(--cloud); border-radius: var(--r-lg); padding: 22px 26px; position: relative; overflow: hidden; }
+  .badge::after { content: ""; position: absolute; inset: -80px -100px auto -100px; height: 200px; background: radial-gradient(ellipse at center, rgba(217,164,82,0.22), transparent 65%); pointer-events: none; }
+  .badge .k { position: relative; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dorado); font-weight: 600; margin-bottom: 6px; }
+  .badge p { position: relative; margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(240,238,233,0.82); }
+
+  /* FORM */
+  form.demo-form { background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: var(--r-xl); padding: 44px; box-shadow: var(--shadow-md); }
+  form.demo-form h2 { margin: 0 0 6px; font-family: var(--font-sans); font-weight: 600; font-size: 22px; color: var(--tinta); }
+  form.demo-form .sub { margin: 0 0 26px; font-size: 14px; color: var(--tinta-3); }
+  form.demo-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  form.demo-form label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--tinta); margin-bottom: 14px; }
+  form.demo-form input, form.demo-form select, form.demo-form textarea { font-family: var(--font-sans); font-weight: 400; font-size: 15px; padding: 12px 14px; border: 1px solid var(--border-subtle); border-radius: var(--r-sm); background: var(--papel); color: var(--tinta); }
+  form.demo-form input:focus, form.demo-form select:focus, form.demo-form textarea:focus { outline: none; border-color: var(--burdeos); box-shadow: 0 0 0 3px rgba(126,36,55,0.15); }
+  form.demo-form textarea { resize: vertical; min-height: 96px; }
+  form.demo-form .full { grid-column: 1 / -1; }
+  form.demo-form .privacy { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--tinta-3); line-height: 1.5; margin: 8px 0 20px; }
+  form.demo-form .privacy input { margin-top: 2px; }
+  form.demo-form button { width: 100%; background: var(--burdeos); color: var(--papel); border: none; padding: 16px 24px; border-radius: var(--r-md); font-family: var(--font-sans); font-weight: 600; font-size: 16px; cursor: pointer; transition: background 120ms ease; }
+  form.demo-form button:hover { background: var(--burdeos-hover); }
+  form.demo-form .disclaimer { margin: 14px 0 0; font-size: 11.5px; color: var(--tinta-4); text-align: center; }
+
+  /* FOOTER */
+  footer.foot { background: var(--burdeos-deep); color: rgba(240,238,233,0.65); border-top: 1px solid rgba(240,238,233,0.08); }
+  footer.foot .inner { max-width: 1240px; margin: 0 auto; padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; font-size: 12.5px; }
+  footer.foot .brand { display: flex; align-items: center; gap: 12px; color: var(--cloud); font-family: var(--font-display); font-size: 18px; }
+  footer.foot .brand .powered { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,238,233,0.45); }
+
+  @media (max-width: 900px) {
+    main.form-page { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px 72px; }
+    form.demo-form { padding: 28px; }
+    form.demo-form .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV MÍNIMA -->
+<nav class="top">
+  <div class="inner">
+    <a class="wordmark" href="index.html">
+      <span class="text">Stratoos</span>
+      <span class="divider"></span>
+      <span class="sub">by Smartmind</span>
+    </a>
+    <a class="back" href="index.html">← Volver</a>
+  </div>
+</nav>
+
+<!-- FORMULARIO -->
+<main class="form-page">
+  <div class="left">
+    <div class="kicker-row">
+      <span class="bicolor"><span></span><span></span></span>
+      <p class="kicker">45 minutos · Tu caso · Sin compromiso</p>
+    </div>
+    <h1>Una sesión de trabajo, no una <em>presentación.</em></h1>
+    <p class="lede">Cuéntanos qué pain quieres resolver y llegamos con Stratoos funcionando sobre un caso como el tuyo — tu sector, tu LMS, tus escenarios. 45 minutos, tu equipo y el nuestro.</p>
+
+    <div class="promises">
+      <div class="promise">
+        <span class="n">01</span>
+        <div>
+          <h3>Respondemos en menos de 24 horas.</h3>
+          <p>Laborables. Con fecha y agenda propuesta — no un «gracias por tu interés».</p>
+        </div>
+      </div>
+      <div class="promise">
+        <span class="n">02</span>
+        <div>
+          <h3>Demo sobre tu caso, no genérica.</h3>
+          <p>Preparamos la sesión con tu sector, tu LMS y el pain concreto que nos pases aquí.</p>
+        </div>
+      </div>
+      <div class="promise">
+        <span class="n">03</span>
+        <div>
+          <h3>Propuesta a medida en 48 horas.</h3>
+          <p>Alcance, precio y plan de integración — en menos de 14 días desde el «adelante».</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="badge">
+      <div class="k">Sin compromiso</div>
+      <p>Sin permanencia. Sin coste de implantación. Sin lock-in: SCORM y xAPI abiertos, tus datos son tuyos.</p>
+    </div>
+  </div>
+
+  <form class="demo-form" action="#" method="post" novalidate>
+    <h2>Reserva tu sesión de 45 minutos</h2>
+    <p class="sub">Todos los campos nos ayudan a preparar mejor la sesión.</p>
+
+    <div class="row">
+      <label>Nombre
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+      </label>
+      <label>Cargo
+        <input type="text" name="cargo" placeholder="Head of L&amp;D, People Development…" required>
+      </label>
+    </div>
+
+    <div class="row">
+      <label>Email corporativo
+        <input type="email" name="email" placeholder="nombre@empresa.com" required>
+      </label>
+      <label>Empresa
+        <input type="text" name="empresa" placeholder="Nombre de la empresa" required>
+      </label>
+    </div>
+
+    <div class="row">
+      <label>Tamaño de plantilla
+        <select name="plantilla" required>
+          <option value="">Selecciona…</option>
+          <option>250 – 1.000</option>
+          <option>1.000 – 5.000</option>
+          <option>5.000 – 20.000</option>
+          <option>+20.000</option>
+        </select>
+      </label>
+      <label>LMS actual
+        <select name="lms" required>
+          <option value="">Selecciona…</option>
+          <option>Cornerstone</option>
+          <option>SAP SuccessFactors</option>
+          <option>Docebo</option>
+          <option>Moodle Workplace</option>
+          <option>Workday Learning</option>
+          <option>Otro</option>
+          <option>Varios a la vez</option>
+        </select>
+      </label>
+    </div>
+
+    <label class="full">¿Qué pain quieres que resolvamos en la sesión?
+      <textarea name="pain" placeholder="Ej.: acortar el ciclo de actualización de cursos regulatorios; demostrar impacto en negocio; unificar tutoría de tres LMS; personalizar rutas para +5.000 empleados…"></textarea>
+    </label>
+
+    <div class="privacy">
+      <input type="checkbox" id="rgpd" name="rgpd" required>
+      <label for="rgpd" style="font-weight: 400; color: var(--tinta-3); font-size: 12.5px; margin: 0;">He leído la política de privacidad y acepto que Stratoos me contacte para preparar la sesión. No compartiremos tus datos con terceros.</label>
+    </div>
+
+    <button type="submit">Reservar mi sesión de 45 min →</button>
+    <p class="disclaimer">Respuesta en 24 h laborables · Cero llamadas frías después</p>
+  </form>
+</main>
+
+<!-- FOOTER MÍNIMO -->
+<footer class="foot">
+  <div class="inner">
+    <div class="brand">
+      Stratoos
+      <span class="powered">powered by Smartmind</span>
+    </div>
+    <span>© 2026 Smartmind · <a href="#" style="color: rgba(240,238,233,0.7);">Privacidad</a> · <a href="#" style="color: rgba(240,238,233,0.7);">Aviso legal</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
