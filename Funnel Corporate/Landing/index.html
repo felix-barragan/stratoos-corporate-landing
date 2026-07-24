@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[BORRADOR INTERNO] Stratoos · Evoluciona la formación sobre tu ecosistema actual</title>
+<meta name="description" content="Stratoos ayuda a equipos de Formación y L&amp;D a producir, personalizar, acompañar y medir mejor la formación sobre el ecosistema que ya utilizan.">
+<meta name="robots" content="noindex, nofollow">
+
+<!--
+  ============================================================================
+  DOCUMENTO INTERNO — NO PUBLICABLE. Landing captación · ICP Corporate / L&D
+  v3 REVISIÓN INTERNA · reenfoque narrativo · 23 jul 2026
+  ============================================================================
+
+  NARRATIVA: problema profesional → caso de uso → forma de abordarlo →
+  confianza técnica → Studios. Los Studios dejan de ser la propuesta del hero.
+
+  CTA único "Ver cómo encaja" en 4 zonas (nav, hero, recorrido comercial,
+  cierre), todas hacia formulario_demo.html.
+
+  CLAIMS RETIRADOS por falta de respaldo documental: trayectoria en años,
+  plazo de implantación, porcentajes de ahorro en producción y en gestión
+  del tutor, duplicación, multiplicador de alcance, SSO, cifrado en reposo,
+  residencia y nube propia, cumplimiento normativo, ausencia de
+  permanencia, exportabilidad completa, unidad de precio e integración
+  estándar. Inventario y motivos en contexto-maestro §17, §18, §24 y §25.
+
+  CORRECCIÓN DE PRODUCTO: el catálogo canónico (BRIEF_PROYECTO.md ·
+  contexto-maestro §6) son siete Studios: Core, Content, Design, Play,
+  Live, Mind y Learn. El módulo que figuraba en v2 con otro nombre no
+  existe en la documentación; v2 conserva el error por ser histórico.
+
+  PRUEBAS SMARTMIND (franja de credibilidad): "14 años", "135.000 alumnos
+  formados en 2025" y "90 % de finalización" son literales de las landings
+  de captación de Smartmind (ver CONTRASTE_LANDINGS_SMARTMIND.md §5 y §6).
+  Se atribuyen expresamente a Smartmind. NO están validadas
+  metodológicamente y NO son resultados de Stratoos.
+
+  PENDIENTE DE VALIDACIÓN antes de cualquier publicación externa: matriz
+  real de integraciones, seguridad y residencia de datos, condiciones
+  contractuales y de precio, metodología de Mind, y las tres cifras
+  Smartmind anteriores.
+
+  AVISO: por instrucción expresa se han suprimido la banda visible
+  "BORRADOR INTERNO — NO PUBLICAR" (D13) y la nota interna de trazabilidad
+  (D14 §8). La única señalización de documento no publicable es este
+  comentario, el prefijo [BORRADOR INTERNO] del <title> y el meta robots
+  noindex. Pendiente de registrar en 00_CONTROL/DECISIONES.md.
+
+  Assets sin cambios (ver assets/PROCEDENCIA.md).
+  Contraste de cifras: 03_FUNNEL_CORPORATE/docs/CONTRASTE_LANDINGS_SMARTMIND.md
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --burdeos: #7E2437;
+    --burdeos-hover: #6A1E2E;
+    --burdeos-deep: #3C121E;
+    --dorado: #D9A452;
+    --dorado-hover: #C08F3E;
+    --dorado-deep: #8C5A10;
+    --cloud: #F0EEE9;
+    --papel: #FBF8F3;
+    --papel-warm: #F6F2EA;
+    --tinta: #14100E;
+    --tinta-2: #3A342F;
+    --tinta-3: #6B655F;
+    --tinta-4: #A29C95;
+    --border-subtle: #E6E1D8;
+    --border-warm: #DCD2BC;
+
+    /* Una sola familia tipográfica en toda la landing */
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+
+    --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 22px;
+
+    --shadow-sm: 0 1px 2px rgba(20,16,14,0.06), 0 1px 1px rgba(20,16,14,0.04);
+    --shadow-md: 0 6px 16px -4px rgba(20,16,14,0.10), 0 2px 4px -2px rgba(20,16,14,0.06);
+
+    /* Ritmo vertical y tipografía fluida (mobile-first) */
+    --pad-section: clamp(56px, 10vw, 100px);
+    --wrap-pad: 20px;
+    --fs-h1: clamp(29px, 6.6vw, 46px);
+    --fs-h2: clamp(26px, 6vw, 44px);
+    --fs-h3: clamp(19px, 4.4vw, 24px);
+    --fs-lede: clamp(16px, 3.6vw, 18px);
+
+    /* Cromo sticky */
+    --nav-h: 52px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--papel); color: var(--tinta);
+    font-family: var(--font-sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  img { max-width: 100%; height: auto; }
+  a { color: var(--burdeos); text-decoration: none; }
+  a:hover { color: var(--burdeos-hover); }
+
+  :where(a, .btn, summary, details):focus-visible {
+    outline: 2px solid var(--dorado);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* --- Eyebrow editorial (reemplaza raya bicolor + kicker) --- */
+  .eyebrow {
+    display: flex; align-items: center;
+    margin: 0 0 16px; padding: 0;
+    font-family: var(--font-sans); font-size: 11.5px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-3);
+  }
+  .eyebrow.on-dark { color: rgba(240,238,233,0.62); }
+  .eyebrow.center { justify-content: center; }
+
+  /* --- Botones --- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-sans); font-weight: 600; font-size: 15px;
+    min-height: 46px; padding: 12px 26px; border-radius: var(--r-md);
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .btn-primary-light { background: var(--burdeos); color: var(--papel); }
+  .btn-primary-light:hover { background: var(--burdeos-hover); color: var(--papel); }
+  .btn-primary-gold { background: var(--dorado); color: #1A1108; }
+  .btn-primary-gold:hover { background: var(--dorado-hover); color: #1A1108; }
+  .btn-ghost-dark { color: var(--cloud); border-color: rgba(240,238,233,0.35); }
+  .btn-ghost-dark:hover { background: rgba(240,238,233,0.08); color: var(--cloud); }
+  .btn-ghost-light { color: var(--tinta); border-color: var(--border-warm); background: transparent; }
+  .btn-ghost-light:hover { background: var(--papel-warm); color: var(--tinta); }
+
+  /* Grupos de CTA: apilados a ancho completo en móvil; en fila desde 480px */
+  .ctas, .cta-strip { display: flex; flex-direction: column; gap: 12px; }
+  .ctas > .btn, .cta-strip > .btn { width: 100%; }
+  .cta-strip { margin-top: clamp(36px, 5vw, 48px); }
+
+  /* --- Wrapper --- */
+  .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 var(--wrap-pad); }
+
+  /* --- NAV --- */
+  nav.top { position: sticky; top: 0; z-index: 30; background: rgba(60,18,30,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(240,238,233,0.14); }
+  nav.top .inner { max-width: 1240px; margin: 0 auto; min-height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px var(--wrap-pad); color: var(--cloud); }
+  nav.top .wordmark { display: flex; align-items: center; gap: 10px; color: var(--cloud); min-width: 0; }
+  nav.top .wordmark-img { height: 19px; width: auto; }
+  nav.top .divider { width: 1px; height: 15px; background: rgba(240,238,233,0.28); }
+  nav.top .sub { display: inline-flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,238,233,0.45); white-space: nowrap; }
+  nav.top .sub img { height: 11px; width: auto; opacity: 0.8; }
+  nav.top .btn { min-height: 40px; padding: 9px 18px; font-size: 13.5px; letter-spacing: 0.01em; border-radius: 3px; white-space: nowrap; }
+  @media (max-width: 400px) { nav.top .divider, nav.top .sub { display: none; } }
+  @media (pointer: coarse) { nav.top .btn { min-height: 44px; } }
+
+  /* --- Franja oscura (hero + logos continua) --- */
+  section.hero, section.logos { background: var(--burdeos-deep); color: var(--cloud); }
+
+  /* --- HERO --- */
+  /* Base = móvil: contenido alineado a la izquierda, sin glow ni decoración */
+  section.hero { position: relative; }
+  section.hero .inner { max-width: 720px; margin: 0 auto; padding: clamp(44px, 9vw, 84px) var(--wrap-pad) clamp(34px, 6vw, 52px); text-align: left; }
+  section.hero h1 { margin: 0 0 18px; font-family: var(--font-sans); font-weight: 300; font-size: var(--fs-h1); line-height: 1.14; letter-spacing: -0.015em; max-width: 20ch; color: var(--cloud); text-wrap: balance; }
+  section.hero h1 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.hero p.lede { margin: 0 0 26px; font-family: var(--font-sans); font-weight: 300; font-size: var(--fs-lede); line-height: 1.7; color: rgba(240,238,233,0.72); max-width: 50ch; text-wrap: pretty; }
+  section.hero .micro-proof { margin: 22px 0 0; font-family: var(--font-mono); font-size: 11.5px; color: rgba(240,238,233,0.48); letter-spacing: 0.02em; line-height: 1.7; }
+  /* Botones del hero: registro editorial — menor radio, más contenidos. Casing intacto. */
+  section.hero .btn { border-radius: 3px; letter-spacing: 0.01em; }
+
+  /* Franja de cifras: filetes de 1px, sin card. Usada en la prueba Smartmind */
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; max-width: 1000px; margin: 0 auto; border-top: 1px solid rgba(240,238,233,0.16); }
+  .metrics > div { min-width: 0; padding: 15px 8px 18px; text-align: center; border-left: 1px solid rgba(240,238,233,0.13); }
+  .metrics > div:first-child { border-left: none; }
+  .metrics .n { font-family: var(--font-sans); font-weight: 400; font-size: clamp(19px, 5.2vw, 28px); line-height: 1.05; letter-spacing: -0.01em; color: var(--cloud); }
+  .metrics .l { font-size: 10.5px; line-height: 1.4; color: rgba(240,238,233,0.48); margin-top: 6px; }
+
+  /* --- Prueba Smartmind (franja de credibilidad, continúa la banda oscura) --- */
+  section.logos { padding: clamp(30px, 5vw, 44px) 0 clamp(34px, 6vw, 52px); border-bottom: 1px solid rgba(240,238,233,0.10); }
+  section.logos .eyebrow { justify-content: center; margin-bottom: 18px; }
+  .proof-note { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.5; color: rgba(240,238,233,0.42); text-align: center; margin: 18px auto 0; max-width: 760px; }
+  .proof-note img { height: 11px; width: auto; opacity: 0.75; }
+
+  /* --- Secciones cuerpo (editorial claro) --- */
+  section.block { padding: var(--pad-section) 0; }
+  section.block + section.block { border-top: 1px solid var(--border-subtle); }
+  section.block.warm { background: var(--papel-warm); }
+  section.block h2 { margin: 0 0 18px; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.14; letter-spacing: -0.015em; max-width: 22ch; text-wrap: balance; color: var(--tinta); }
+  section.block h2 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.block p.lede { margin: 0; font-size: var(--fs-lede); line-height: 1.65; color: var(--tinta-2); max-width: 60ch; text-wrap: pretty; }
+
+  /* --- Problemas prioritarios (filete editorial, sin card) --- */
+  .pains { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 5vw, 36px); margin-top: clamp(36px, 6vw, 48px); }
+  .pain { border-top: 2px solid var(--burdeos); padding-top: 18px; }
+  .pain .q { font-family: var(--font-sans); font-weight: 600; font-size: clamp(18px, 4.6vw, 21px); line-height: 1.3; color: var(--tinta); margin: 0 0 12px; }
+  .pain .a { margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: var(--tinta-2); }
+  .pain .a strong { color: var(--burdeos); font-weight: 600; }
+  .pain .studio-tag { font-family: var(--font-mono); font-size: 11px; color: var(--tinta-3); letter-spacing: 0.02em; }
+
+  /* --- Reframe (pieza-firma: capas) --- */
+  .reframe { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 6vw, 64px); align-items: center; }
+  .reframe .lede { margin-bottom: 0; }
+  .stack { font-family: var(--font-sans); }
+  .stack .group { position: relative; }
+  .stack .group.added { padding-left: 18px; }
+  .stack .group.added::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; border-radius: 3px; background: var(--dorado); }
+  .stack .group-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tinta-4); margin: 0 0 8px; }
+  .stack .tier { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 18px; border-radius: var(--r-md); margin-bottom: 8px; }
+  .stack .tier .t-name { font-weight: 600; font-size: 14px; }
+  .stack .tier .t-tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .stack .tier.on { background: var(--burdeos); color: var(--cloud); }
+  .stack .tier.on.soft { background: rgba(126,36,55,0.86); }
+  .stack .tier.on .t-tag { color: var(--dorado); }
+  .stack .tier.base { background: var(--papel-warm); color: var(--tinta-2); border: 1px solid var(--border-warm); }
+  .stack .tier.base .t-tag { color: var(--tinta-3); }
+  .stack .join { text-align: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tinta-4); padding: 10px 0; }
+
+  /* --- Cuatro transformaciones (contraste breve hoy → con Stratoos) --- */
+  .transforms { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 5vw, 36px); margin-top: clamp(36px, 6vw, 48px); }
+  .transform { border-top: 1px solid var(--border-warm); padding-top: 18px; }
+  .transform h3 { margin: 0 0 14px; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .transform dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-items: baseline; }
+  .transform dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-4); }
+  .transform dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--tinta-2); }
+  .transform dt.k-next { color: var(--burdeos); }
+  .transform dd.v-next { color: var(--tinta); }
+
+  /* --- Casos de uso (lista con filetes, sin numeración) --- */
+  .cases { margin-top: clamp(32px, 5vw, 44px); border-top: 1px solid var(--border-subtle); }
+  .case { padding: 18px 0; border-bottom: 1px solid var(--border-subtle); display: grid; grid-template-columns: 1fr; gap: 4px; }
+  .case .c-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 1.35; color: var(--tinta); }
+  .case .c-desc { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--tinta-2); }
+
+  /* --- Por qué encaja (razones con filete, sin card) --- */
+  .reasons { display: grid; grid-template-columns: 1fr; gap: clamp(26px, 5vw, 34px); margin-top: clamp(36px, 6vw, 48px); }
+  .reason { border-top: 1px solid var(--border-warm); padding-top: 18px; }
+  .reason .n { font-family: var(--font-mono); font-size: 11px; color: var(--burdeos); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+  .reason h3 { margin: 0 0 10px; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .reason p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--tinta-2); }
+
+  /* --- Studios (índice editorial, sin cards — D12) --- */
+  .studios-index { margin-top: clamp(32px, 5vw, 48px); border-top: 1px solid var(--border-subtle); }
+  .studio-row { display: grid; grid-template-columns: 1fr; gap: 6px; padding: 20px 0; border-bottom: 1px solid var(--border-subtle); }
+  .studio-row .std-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .studio-row .num { font-family: var(--font-mono); font-size: 13px; color: var(--burdeos); font-weight: 500; }
+  .studio-row .name { font-family: var(--font-sans); font-weight: 600; font-size: 16.5px; color: var(--tinta); }
+  .studio-row .tag { font-family: var(--font-mono); font-size: 11px; color: var(--tinta-3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .studio-row .desc { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--tinta-2); }
+  .studio-row.featured { box-shadow: inset 3px 0 0 var(--dorado); padding-left: 16px; }
+  .studio-row.featured .tag { color: var(--dorado-deep); }
+  .studio-row.note .num { color: var(--tinta-4); }
+  .studio-row.note .name { color: var(--tinta-2); }
+  .studio-row.note .desc { color: var(--tinta-3); }
+
+  /* --- Cómo funciona (pasos: secuencia real 01–03) --- */
+  .steps { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: clamp(32px, 5vw, 44px); border-top: 1px solid var(--border-subtle); }
+  .step { padding: 26px 0; border-bottom: 1px solid var(--border-subtle); }
+  .step .n { font-family: var(--font-mono); font-size: 14px; color: var(--burdeos); font-weight: 500; margin-bottom: 10px; }
+  .step h3 { margin: 0 0 10px; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .step p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--tinta-2); }
+
+  /* --- FAQ --- */
+  .faq { display: flex; flex-direction: column; gap: 8px; margin-top: clamp(32px, 5vw, 40px); max-width: 880px; }
+  .faq details { border-bottom: 1px solid var(--border-subtle); }
+  .faq summary { list-style: none; cursor: pointer; padding: 20px 0; font-family: var(--font-sans); font-weight: 600; font-size: 16px; color: var(--tinta); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--font-mono); font-size: 22px; color: var(--burdeos); transition: transform 160ms ease; flex: none; }
+  .faq details[open] summary { color: var(--burdeos); }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { margin: 0; padding: 0 0 22px; font-size: 14.5px; line-height: 1.65; color: var(--tinta-2); max-width: 62ch; }
+
+  /* --- Cierre (2º hero, oscuro, sin glow) --- */
+  section.close { background: var(--burdeos-deep); color: var(--cloud); }
+  section.close .inner { max-width: 820px; margin: 0 auto; padding: var(--pad-section) var(--wrap-pad); text-align: center; }
+  section.close h2 { margin: 0 auto 18px; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.14; letter-spacing: -0.015em; max-width: 24ch; color: var(--cloud); text-wrap: balance; }
+  section.close h2 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.close p.lede { color: rgba(240,238,233,0.72); max-width: 52ch; margin: 0 auto 28px; font-size: var(--fs-lede); }
+  section.close .ctas { justify-content: center; }
+
+  /* --- Footer --- */
+  footer.foot { background: var(--burdeos-deep); color: rgba(240,238,233,0.7); border-top: 1px solid rgba(240,238,233,0.08); }
+  footer.foot .inner { max-width: 1240px; margin: 0 auto; padding: 36px var(--wrap-pad); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer.foot .brand { display: flex; align-items: center; gap: 12px; color: var(--cloud); font-family: var(--font-display); font-size: 20px; }
+  footer.foot .brand .powered { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,238,233,0.5); }
+  footer.foot .brand .powered-img { height: 12px; width: auto; opacity: 0.85; }
+  footer.foot nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  footer.foot nav a, footer.foot nav span.muted { color: rgba(240,238,233,0.7); font-size: 13.5px; }
+  footer.foot nav a:hover { color: var(--cloud); }
+  footer.foot nav span.muted { cursor: default; color: rgba(240,238,233,0.4); }
+
+  /* --- Ancla estudios --- */
+  #estudios { scroll-margin-top: calc(var(--nav-h) + 16px); }
+
+  /* =========================================================
+     MOBILE-FIRST: mejoras progresivas con min-width
+     ========================================================= */
+
+  @media (min-width: 480px) {
+    /* CTA en fila desde 480px */
+    .ctas, .cta-strip { flex-direction: row; flex-wrap: wrap; }
+    .ctas > .btn, .cta-strip > .btn { width: auto; }
+    .metrics > div { padding: 17px 12px 20px; }
+  }
+
+  @media (min-width: 641px) {
+    .wrap { padding: 0 32px; }
+    :root { --wrap-pad: 32px; }
+  }
+
+  @media (min-width: 768px) {
+    /* Header algo más alto en escritorio */
+    :root { --nav-h: 60px; }
+    /* Hero: composición centrada y contenida (referencia JP) */
+    section.hero .inner { text-align: center; }
+    section.hero .eyebrow { justify-content: center; }
+    section.hero h1 { margin-left: auto; margin-right: auto; }
+    section.hero p.lede { margin-left: auto; margin-right: auto; }
+    section.hero .ctas { justify-content: center; }
+    .metrics .l { font-size: 11.5px; }
+
+    .compare { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .reasons { grid-template-columns: 1fr 1fr; gap: 34px 44px; }
+    .steps { grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border-subtle); }
+    .step { border-bottom: none; border-right: 1px solid var(--border-subtle); padding: 28px 28px 0 0; }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .studio-row { grid-template-columns: 3fr 4fr; gap: 6px 32px; align-items: baseline; }
+    .studio-row .desc { grid-column: auto; }
+    .pains { grid-template-columns: 1fr 1fr; gap: 32px 44px; }
+    .transforms { grid-template-columns: 1fr 1fr; gap: 32px 44px; }
+    .case { grid-template-columns: 2fr 3fr; gap: 6px 32px; align-items: baseline; padding: 20px 0; }
+  }
+
+  @media (min-width: 1024px) {
+    .reframe { grid-template-columns: 1.05fr 0.95fr; gap: 72px; }
+  }
+
+  /* --- Reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="inner">
+    <div class="wordmark">
+      <img class="wordmark-img" src="assets/stratoos-cloud-dancer-transparente.png" alt="Stratoos">
+      <span class="divider"></span>
+      <span class="sub">powered by <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind"></span>
+    </div>
+    <a class="btn btn-primary-gold" href="formulario_demo.html">Solicitar Demo</a>
+  </div>
+</nav>
+
+<!-- HERO — orientado al problema -->
+<section class="hero">
+  <div class="inner">
+    <h1>Tu LMS funciona. Tu equipo sigue resolviendo <em>demasiado fuera de él.</em></h1>
+    <p class="lede">Stratoos ayuda a producir, personalizar, acompañar y medir mejor la formación sobre el ecosistema que ya utilizas.</p>
+    <div class="ctas">
+      <a class="btn btn-primary-gold" href="formulario_demo.html">Solicitar Demo</a>
+      <a class="btn btn-ghost-dark" href="formulario_demo.html">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRUEBA SMARTMIND — cifras atribuidas a Smartmind, no a Stratoos -->
+<section class="logos">
+  <div class="wrap">
+    <div class="metrics">
+      <div><div class="n">14</div><div class="l">años diseñando aprendizaje digital</div></div>
+      <div><div class="n">135.000</div><div class="l">alumnos formados en 2025</div></div>
+      <div><div class="n">90 %</div><div class="l">de finalización en la formación de Smartmind</div></div>
+    </div>
+    <p class="proof-note">Datos de <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind">, la matriz de Stratoos.</p>
+  </div>
+</section>
+
+<!-- PROBLEMAS PRIORITARIOS DEL ICP -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Lo que nos cuentan los equipos de L&amp;D</p>
+    <h2>Lo que más cuesta hoy no ocurre <em>dentro</em> del LMS.</h2>
+
+    <div class="pains">
+      <article class="pain">
+        <p class="q">La formación cambia más despacio que el negocio.</p>
+        <p class="a">Cuando cambia un producto, un proceso o una norma, actualizar el material y volver a publicarlo lleva semanas.</p>
+      </article>
+      <article class="pain">
+        <p class="q">Tienes datos en varias plataformas, pero no una visión común.</p>
+        <p class="a">La actividad queda repartida entre sistemas, informes y bandejas distintas, y reunirla es trabajo manual.</p>
+      </article>
+      <article class="pain">
+        <p class="q">Sabes quién completó. Te cuesta demostrar qué sabe aplicar.</p>
+        <p class="a">Las métricas disponibles describen actividad y finalización, no lo que la persona es capaz de hacer en su puesto.</p>
+      </article>
+      <article class="pain">
+        <p class="q">Personalizar la formación sigue requiriendo demasiado trabajo manual.</p>
+        <p class="a">Adaptar itinerarios por rol, nivel o necesidad depende de un esfuerzo que no escala a toda la plantilla.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- REENCUADRE (pieza-firma) — se explica una sola vez -->
+<section class="block warm">
+  <div class="wrap">
+    <div class="reframe">
+      <div>
+        <h2>Stratoos trabaja <em>sobre</em> el ecosistema que ya tienes.</h2>
+        <p class="lede">No sustituye tu LMS ni te pide empezar de cero. Se conecta a las plataformas, los contenidos y los datos que ya utilizas, y añade encima el trabajo que hoy resolvéis a mano: producir, personalizar, acompañar y medir.</p>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <div class="group added">
+          <p class="group-label">Stratoos añade</p>
+          <div class="tier on"><span class="t-name">Producir · personalizar</span><span class="t-tag">Capa de trabajo</span></div>
+          <div class="tier on soft"><span class="t-name">Acompañar · medir</span><span class="t-tag">Evidencia</span></div>
+        </div>
+        <div class="join">sobre lo que ya existe</div>
+        <div class="group">
+          <p class="group-label">Lo que ya tienes</p>
+          <div class="tier base"><span class="t-name">Tu LMS actual</span><span class="t-tag">Plataforma</span></div>
+          <div class="tier base"><span class="t-name">Tus contenidos y datos</span><span class="t-tag">Repositorios</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUATRO TRANSFORMACIONES -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Qué cambia en el día a día</p>
+    <h2>Cuatro cosas que <em>cambian.</em></h2>
+
+    <div class="transforms">
+      <article class="transform">
+        <h3>Producir y actualizar</h3>
+        <dl>
+          <dt>Hoy</dt><dd>Cada cambio reabre el ciclo completo de producción y revisión.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">El material se genera y se actualiza a partir de lo que ya existe, con revisión editorial en cada etapa.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Personalizar</h3>
+        <dl>
+          <dt>Hoy</dt><dd>El mismo itinerario para perfiles con necesidades distintas.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">Recorridos compuestos según el perfil, el historial y el objetivo de cada persona.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Acompañar y hacer seguimiento</h3>
+        <dl>
+          <dt>Hoy</dt><dd>La actividad se revisa alumno por alumno y plataforma por plataforma.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">Una vista común de la actividad y avisos sobre quién necesita atención. La IA propone; el tutor decide.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Medir y obtener evidencia</h3>
+        <dl>
+          <dt>Hoy</dt><dd>Los informes describen accesos, progreso y finalización.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">Evidencia de comprensión, capacidad y aplicación, además de la finalización.</dd>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CASOS DE USO CORPORATE -->
+<section class="block warm">
+  <div class="wrap">
+    <p class="eyebrow">Casos de uso</p>
+    <h2>Situaciones donde <em>encaja.</em></h2>
+
+    <div class="cases">
+      <article class="case">
+        <span class="c-title">Cambia un producto, un proceso o una norma</span>
+        <p class="c-desc">Actualizar el material afectado y volver a publicarlo sin rehacer el curso entero.</p>
+      </article>
+      <article class="case">
+        <span class="c-title">El seguimiento está repartido en varios sistemas</span>
+        <p class="c-desc">Consolidar en una vista común la actividad que hoy se revisa plataforma por plataforma.</p>
+      </article>
+      <article class="case">
+        <span class="c-title">Cada rol necesita una formación distinta</span>
+        <p class="c-desc">Adaptar el itinerario por rol, nivel o necesidad sin montar un programa nuevo para cada grupo.</p>
+      </article>
+      <article class="case">
+        <span class="c-title">Necesitas demostrar algo más que la finalización</span>
+        <p class="c-desc">Recoger evidencia de lo que la persona comprende y sabe aplicar, no solo de que terminó el curso.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ OCURRE DESPUÉS DE SOLICITAR INFORMACIÓN -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Cómo seguimos</p>
+    <h2>Qué ocurre cuando <em>nos escribes.</em></h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Completas el formulario.</h3>
+        <p>Nos cuentas tu situación, qué plataformas usáis y qué queréis resolver.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Llamada breve.</h3>
+        <p>Revisamos el caso contigo para ver si hay encaje real. No es una presentación de producto.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Sesión de trabajo.</h3>
+        <p>Si encaja, preparamos una sesión de 45 minutos con una demostración aplicada a tu caso.</p>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <a class="btn btn-primary-light" href="formulario_demo.html">Solicitar Demo</a>
+      <a class="btn btn-ghost-light" href="formulario_demo.html">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRACIÓN, SEGURIDAD Y CONTROL — solo lo documentado -->
+<section class="block warm">
+  <div class="wrap">
+    <p class="eyebrow">Integración y control</p>
+    <h2>Qué podemos afirmar <em>hoy.</em></h2>
+    <p class="lede">Preferimos decir lo que está confirmado. Lo que todavía está en validación lo revisamos contigo en la sesión, con la documentación delante.</p>
+
+    <div class="reasons">
+      <article class="reason">
+        <div class="n">Sobre tu ecosistema</div>
+        <h3>No sustituye tu LMS.</h3>
+        <p>Stratoos se conecta a las plataformas y los contenidos que ya utilizas y trabaja sobre ellos.</p>
+      </article>
+      <article class="reason">
+        <div class="n">Adopción</div>
+        <h3>Puedes empezar por una sola pieza.</h3>
+        <p>El sistema es modular: se empieza por el Studio que resuelve la necesidad más urgente y se amplía después.</p>
+      </article>
+      <article class="reason">
+        <div class="n">Formatos</div>
+        <h3>Publicación en formatos estándar.</h3>
+        <p>Studio Design publica en SCORM, xAPI y HTML5 para integrarse con plataformas compatibles.</p>
+      </article>
+      <article class="reason">
+        <div class="n">Control</div>
+        <h3>La IA propone; el profesional decide.</h3>
+        <p>Las acciones sensibles pasan por revisión humana y quedan registradas.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIOS — explicación secundaria (índice editorial) -->
+<section id="estudios" class="block">
+  <div class="wrap">
+    <p class="eyebrow">La arquitectura</p>
+    <h2>Los siete Studios que hacen posible <em>lo anterior.</em></h2>
+    <p class="lede">Cada Studio cubre una parte del ciclo formativo. No hay que implantarlos todos: lo habitual es entrar por un caso concreto.</p>
+
+    <div class="studios-index">
+      <article class="studio-row">
+        <div class="std-top"><span class="num">00</span><span class="name">Studio Core</span><span class="tag">Organizar</span></div>
+        <p class="desc">Organiza el conocimiento disponible, detecta material duplicado u obsoleto y compone recorridos.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">01</span><span class="name">Studio Content</span><span class="tag">Generar</span></div>
+        <p class="desc">Genera contenido formativo con contraste factual y normativo, y control editorial en cada etapa.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">02</span><span class="name">Studio Design</span><span class="tag">Diseñar</span></div>
+        <p class="desc">Convierte el contenido en piezas visuales e interactivas y las publica en formatos estándar.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">03</span><span class="name">Studio Play</span><span class="tag">Practicar</span></div>
+        <p class="desc">Convierte contenidos en situaciones donde la persona decide y demuestra criterio.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">04</span><span class="name">Studio Live</span><span class="tag">Acompañar</span></div>
+        <p class="desc">Unifica la actividad de las plataformas conectadas y asiste a tutores y coordinación.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">05</span><span class="name">Studio Mind</span><span class="tag">Medir</span></div>
+        <p class="desc">Evalúa comprensión, capacidad, conducta y transferencia para obtener evidencia de competencia.</p>
+      </article>
+      <article class="studio-row">
+        <div class="std-top"><span class="num">06</span><span class="name">Studio Learn</span><span class="tag">Distribuir</span></div>
+        <p class="desc">Distribuye formación continua y recorridos personalizados para cada persona.</p>
+      </article>
+      <article class="studio-row note">
+        <div class="std-top"><span class="num">→</span><span class="name">Empieza por uno</span><span class="tag">Modular</span></div>
+        <p class="desc">Elige el que resuelva la necesidad más urgente; el sistema crece desde ahí.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+  <div class="wrap">
+    <h2>Lo que <em>siempre</em> se pregunta.</h2>
+
+    <div class="faq">
+      <details>
+        <summary>¿Stratoos sustituye mi LMS?</summary>
+        <p>No. Se conecta a la plataforma que ya utilizas y trabaja sobre ella. Tu LMS sigue siendo donde vive la formación; Stratoos se ocupa del trabajo que hoy queda fuera: producir, personalizar, acompañar y medir.</p>
+      </details>
+      <details>
+        <summary>¿Por dónde se puede empezar?</summary>
+        <p>Por el problema más urgente, no por el catálogo. El sistema es modular: se empieza por un Studio y se amplía cuando tiene sentido para el equipo.</p>
+      </details>
+      <details>
+        <summary>¿Qué ocurre después de solicitar información?</summary>
+        <p>Completas el formulario, hacemos una llamada breve para revisar el caso y, si hay encaje, preparamos una sesión de 45 minutos con una demostración aplicada a tu situación. Rellenar el formulario no agenda directamente una demostración.</p>
+      </details>
+      <details>
+        <summary>¿Cómo se relacionan los casos de uso con los Studios?</summary>
+        <p>Cada caso de uso se apoya en uno o varios Studios. Actualizar formación cuando cambia una norma es sobre todo Content y Design; consolidar el seguimiento es Live; medir con evidencia es Mind. Lo habitual es entrar por el caso, no por el módulo.</p>
+      </details>
+      <details>
+        <summary>¿Qué se puede afirmar hoy sobre integración y seguridad?</summary>
+        <p>Que Stratoos trabaja sobre las plataformas conectadas y que Studio Design publica en formatos estándar (SCORM, xAPI y HTML5). La matriz concreta de integraciones, los detalles de seguridad y las condiciones de despliegue los revisamos caso por caso: preferimos no afirmar lo que todavía no está documentado.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE (segundo hero) -->
+<section class="close">
+  <div class="inner">
+    <h2>Una sesión de trabajo sobre tu caso de uso. No otra demo de catálogo.</h2>
+    <p class="lede">Revisamos qué limita hoy a tu equipo de L&amp;D, mostramos cómo podría abordarse sobre el ecosistema actual y definimos un posible primer caso para validar.</p>
+    <div class="ctas">
+      <a class="btn btn-primary-gold" href="formulario_demo.html">Solicitar Demo</a>
+      <a class="btn btn-ghost-dark" href="formulario_demo.html">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="inner">
+    <div class="brand">
+      Stratoos
+      <span class="powered">powered by <img class="powered-img" src="assets/smartmind-wordmark-cream.png" alt="Smartmind"></span>
+    </div>
+    <nav>
+      <a href="#estudios">Studios</a>
+      <span class="muted">Privacidad</span>
+      <span class="muted">Aviso legal</span>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
