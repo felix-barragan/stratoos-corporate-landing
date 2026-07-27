@@ -464,12 +464,54 @@
     .transforms { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   }
 
+  /* =========================================================
+     MOTION — un momento focal (el ledger) + reveals sobrios de lista.
+     Estado por defecto (sin JS): TODO visible. La clase .anim, puesta
+     antes del primer paint, es la que habilita los estados ocultos, así
+     que si el script falla la página se ve entera.
+     ========================================================= */
+  html.anim [data-reveal],
+  html.anim [data-reveal-seq] [data-seq] {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  html.anim [data-reveal].in,
+  html.anim [data-reveal-seq].in [data-seq] { opacity: 1; transform: none; }
+
+  /* Momento focal: la cuenta de la convocatoria.
+     La línea de ingreso (dorada) llega con un matiz de escala y su filete
+     dorado se traza de arriba abajo, un pelín después de los costes. */
+  html.anim .stack [data-seq].tier.on { transform: translateY(16px) scale(0.985); }
+  html.anim .stack.in [data-seq].tier.on { transform: none; }
+  html.anim .stack .group.added::before {
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .55s cubic-bezier(.16,1,.3,1) .4s;
+  }
+  html.anim .stack.in .group.added::before { transform: scaleY(1); }
+
+  /* Feedback de estado: la respuesta del FAQ entra al abrir (CSS puro) */
+  .faq details[open] p { animation: faqIn .28s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes faqIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  /* Feedback táctil: el botón se hunde un pelo al pulsar */
+  .btn { transition: background 120ms ease, color 120ms ease, border-color 120ms ease, transform 90ms ease; }
+  .btn:active { transform: translateY(1px); }
+
   /* --- Reduced motion --- */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    /* Sin JS de reveal: forzar visible pase lo que pase */
+    html.anim [data-reveal],
+    html.anim [data-reveal-seq] [data-seq],
+    html.anim .stack [data-seq].tier.on { opacity: 1 !important; transform: none !important; }
+    html.anim .stack .group.added::before { transform: scaleY(1) !important; }
+    .btn:active { transform: none !important; }
   }
 </style>
+<!-- Habilita los estados ocultos del reveal antes del primer paint. Sin JS,
+     la clase no se añade y la página se ve entera. -->
+<script>document.documentElement.classList.add('anim');</script>
 </head>
 <body>
 
@@ -487,11 +529,11 @@
 
 <!-- HERO — la economía de la finalización -->
 <section class="hero">
-  <div class="inner">
-    <p class="eyebrow on-dark">Centros de formación · Consultoras · Convocatorias</p>
-    <h1>Solo cobras si <em>terminan.</em> ¿Cuántos se te caen por el camino?</h1>
-    <p class="lede">La captación y la tutoría están pagadas mucho antes de que nadie finalice. Cuando un alumno se cae, buena parte de esa inversión ya no vuelve.</p>
-    <div class="ctas">
+  <div class="inner" data-reveal-seq>
+    <p class="eyebrow on-dark" data-seq>Centros de formación · Consultoras · Convocatorias</p>
+    <h1 data-seq>Solo cobras si <em>terminan.</em> ¿Cuántos se te caen por el camino?</h1>
+    <p class="lede" data-seq>La captación y la tutoría están pagadas mucho antes de que nadie finalice. Cuando un alumno se cae, buena parte de esa inversión ya no vuelve.</p>
+    <div class="ctas" data-seq>
       <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
       <a class="btn btn-ghost-dark" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Más información</a>
     </div>
@@ -507,17 +549,17 @@
 <section class="clients">
   <div class="wrap">
     <p class="eyebrow on-dark center">Con la confianza de los líderes del sector</p>
-    <div class="client-row" aria-label="Clientes de Smartmind (representación provisional)">
-      <span class="cli">Femxa</span>
-      <span class="cli">Aspasia</span>
-      <span class="cli">Adams</span>
-      <span class="cli">ATU</span>
-      <span class="cli">Konectia</span>
-      <span class="cli">Core</span>
-      <span class="cli">Odilo</span>
-      <span class="cli">Go1</span>
-      <span class="cli">Ideas Propias</span>
-      <span class="cli">MiríadaX</span>
+    <div class="client-row" data-reveal-seq aria-label="Clientes de Smartmind (representación provisional)">
+      <span class="cli" data-seq>Femxa</span>
+      <span class="cli" data-seq>Aspasia</span>
+      <span class="cli" data-seq>Adams</span>
+      <span class="cli" data-seq>ATU</span>
+      <span class="cli" data-seq>Konectia</span>
+      <span class="cli" data-seq>Core</span>
+      <span class="cli" data-seq>Odilo</span>
+      <span class="cli" data-seq>Go1</span>
+      <span class="cli" data-seq>Ideas Propias</span>
+      <span class="cli" data-seq>MiríadaX</span>
     </div>
     <p class="clients-note">Clientes de <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind">, la matriz de Stratoos. Representación provisional en texto — los logotipos oficiales están pendientes de archivo y de autorización expresa de cada titular (D9 / P0.4). No publicar.</p>
   </div>
@@ -529,10 +571,10 @@
 <section class="logos">
   <div class="wrap">
     <p class="eyebrow on-dark center">Referencias del sector</p>
-    <div class="metrics">
-      <div><div class="q">hasta</div><div class="n">95 %</div><div class="l">de finalización alcanzada</div></div>
-      <div><div class="q">de media</div><div class="n">−30 %</div><div class="l">en caídas, frente a otros proveedores</div></div>
-      <div><div class="q">hasta</div><div class="n">70 %</div><div class="l">más alumnos que repiten</div></div>
+    <div class="metrics" data-reveal-seq>
+      <div data-seq><div class="q">hasta</div><div class="n">95 %</div><div class="l">de finalización alcanzada</div></div>
+      <div data-seq><div class="q">de media</div><div class="n">−30 %</div><div class="l">en caídas, frente a otros proveedores</div></div>
+      <div data-seq><div class="q">hasta</div><div class="n">70 %</div><div class="l">más alumnos que repiten</div></div>
     </div>
     <p class="proof-note">Datos de <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind"> sobre sus propios contenidos formativos. El dato de caídas es lo que sus clientes le reportan. No son resultados medidos del producto Stratoos. Sin validación metodológica.</p>
   </div>
@@ -548,20 +590,20 @@
         <p class="lede">Todo lo que hace falta para que un alumno llegue al final está pagado antes de que llegue. Por eso la finalización no es un indicador de calidad: es la línea que separa el ingreso de la pérdida. Y por eso mover esa línea unos puntos vale más que cualquier ahorro operativo.</p>
         <p class="claim-note">Smartmind lo formula desde el otro lado: sus contenidos <q>disminuyen notablemente el gasto en captación, docencia y licencias</q>. Claim de Smartmind sobre su catálogo, pendiente de validación.</p>
       </div>
-      <div class="stack" aria-hidden="true">
+      <div class="stack" data-reveal-seq aria-hidden="true">
         <div class="group">
-          <p class="group-label">Ya está pagado</p>
-          <div class="tier base"><span class="t-name">Captación del alumno</span><span class="t-tag">Marketing</span></div>
-          <div class="tier base"><span class="t-name">Tutoría y dinamización</span><span class="t-tag">Horas</span></div>
-          <div class="tier base"><span class="t-name">Licencias de contenido</span><span class="t-tag">Por alumno</span></div>
-          <div class="tier base"><span class="t-name">Plataforma y gestión</span><span class="t-tag">Operación</span></div>
+          <p class="group-label" data-seq>Ya está pagado</p>
+          <div class="tier base" data-seq><span class="t-name">Captación del alumno</span><span class="t-tag">Marketing</span></div>
+          <div class="tier base" data-seq><span class="t-name">Tutoría y dinamización</span><span class="t-tag">Horas</span></div>
+          <div class="tier base" data-seq><span class="t-name">Licencias de contenido</span><span class="t-tag">Por alumno</span></div>
+          <div class="tier base" data-seq><span class="t-name">Plataforma y gestión</span><span class="t-tag">Operación</span></div>
         </div>
-        <div class="join">y solo entonces</div>
+        <div class="join" data-seq>y solo entonces</div>
         <div class="group added">
-          <p class="group-label">Se cobra</p>
-          <div class="tier on"><span class="t-name">Cuando el alumno finaliza</span><span class="t-tag">Ingreso</span></div>
+          <p class="group-label" data-seq>Se cobra</p>
+          <div class="tier on" data-seq><span class="t-name">Cuando el alumno finaliza</span><span class="t-tag">Ingreso</span></div>
         </div>
-        <p class="outcome">Cuando alguien se cae, <strong>buena parte de lo de arriba se queda sin lo de abajo.</strong></p>
+        <p class="outcome" data-seq>Cuando alguien se cae, <strong>buena parte de lo de arriba se queda sin lo de abajo.</strong></p>
       </div>
     </div>
   </div>
@@ -574,23 +616,23 @@
     <p class="eyebrow">Si nada de esto te suena, esta página no es para ti</p>
     <h2>Lo que se lleva el margen no es el precio del contenido. Son las <em>caídas de alumnos.</em></h2>
 
-    <div class="pains">
-      <article class="pain">
+    <div class="pains" data-reveal-seq>
+      <article class="pain" data-seq>
         <span class="p-num" aria-hidden="true">01</span>
         <p class="q">La tasa de caída se come el margen.</p>
         <p class="a">Cada alumno que se cae son captación, tutoría y licencia <strong>ya pagadas</strong>. Ese coste está hecho, y buena parte no la recuperas.</p>
       </article>
-      <article class="pain">
+      <article class="pain" data-seq>
         <span class="p-num" aria-hidden="true">02</span>
         <p class="q">El abandono se ve cuando ya no hay nada que hacer.</p>
         <p class="a">Para cuando un informe muestra que alguien lleva semanas parado, la ventana en la que se le podía recuperar se cerró hace días.</p>
       </article>
-      <article class="pain">
+      <article class="pain" data-seq>
         <span class="p-num" aria-hidden="true">03</span>
         <p class="q">La tutoría no escala al ritmo de las convocatorias.</p>
         <p class="a">Perseguir actividad, mandar recordatorios y consolidar informes plataforma por plataforma consume horas que, aun así, no evitan la caída.</p>
       </article>
-      <article class="pain">
+      <article class="pain" data-seq>
         <span class="p-num" aria-hidden="true">04</span>
         <p class="q">El engagement del contenido es desigual.</p>
         <p class="a">Un curso que no engancha se abandona antes. La diferencia entre un módulo y otro acaba apareciendo en la tasa de finalización.</p>
@@ -673,18 +715,18 @@
     <p class="eyebrow">Cómo seguimos</p>
     <h2>Empezamos por una convocatoria <em>que ya has ejecutado.</em></h2>
 
-    <div class="steps">
-      <div class="step">
+    <div class="steps" data-reveal-seq>
+      <div class="step" data-seq>
         <div class="n">01</div>
         <h3>Completas el formulario.</h3>
         <p>Nos dices con qué convocatorias trabajas, qué caída tienes hoy y con qué solución la gestionas.</p>
       </div>
-      <div class="step">
+      <div class="step" data-seq>
         <div class="n">02</div>
         <h3>Llamada breve.</h3>
         <p>Revisamos si hay encaje real sobre un caso concreto. No es una presentación de producto.</p>
       </div>
-      <div class="step">
+      <div class="step" data-seq>
         <div class="n">03</div>
         <h3>Sesión de trabajo.</h3>
         <p>Si encaja, analizamos una convocatoria real: dónde se produjo la caída y qué señales había antes.</p>
@@ -766,6 +808,34 @@
 <div class="sticky-mobile">
   <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
 </div>
+
+<!-- Reveal al entrar en pantalla. Sin observer (o con reduced-motion) la
+     página se ve entera: el CSS del reduced-motion fuerza el estado visible. -->
+<script>
+(function () {
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.remove('anim');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      io.unobserve(el);
+      if (el.hasAttribute('data-reveal-seq')) {
+        var items = el.querySelectorAll('[data-seq]');
+        for (var i = 0; i < items.length; i++) {
+          items[i].style.transitionDelay = Math.min(i * 70, 560) + 'ms';
+        }
+      }
+      el.classList.add('in');
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  var els = document.querySelectorAll('[data-reveal],[data-reveal-seq]');
+  for (var i = 0; i < els.length; i++) io.observe(els[i]);
+})();
+</script>
 
 </body>
 </html>
