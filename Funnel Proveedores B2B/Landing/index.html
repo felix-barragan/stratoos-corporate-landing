@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>[BORRADOR INTERNO] Stratoos · Solo cobras si terminan</title>
+<meta name="description" content="Stratoos ayuda a los centros de formación a detectar antes al alumno que se cae, intervenir a tiempo y llegar a la finalización con la que cobran.">
+<meta name="robots" content="noindex, nofollow">
+
+<!--
+  ============================================================================
+  DOCUMENTO INTERNO — NO PUBLICABLE. Landing captación · ICP 04
+  Centros de Formación / Proveedores B2B · v1 REVISIÓN INTERNA · 24 jul 2026
+  ============================================================================
+
+  DIRECCIÓN (contrato)
+
+  THESIS: la finalización es la línea de caja del centro, no un KPI de
+  calidad. Rechaza la página que este sector siempre publica — catálogo,
+  cobertura de convocatorias y sello normativo.
+  OWN-WORLD: mundo visual heredado de landing_corporate_v3_revision_interna.html
+  — burdeos profundo dominante, papel cálido, dorado como única señal, Geist
+  ligero para display, mono para medida. Filetes de 1–2 px en lugar de cards.
+  Sin imágenes, sin iconos, sin caras.
+  STORY: el visitante reconoce su cuenta de resultados en el hero, ve que lo
+  ya gastado no depende de él, entiende que su proveedor actual no cubre la
+  parte operativa, y pide analizar una convocatoria concreta.
+  FIRST VIEWPORT: banda oscura a sangre; eyebrow de cualificación, H1 a dos
+  tiempos ("Solo cobras si terminan" / la pregunta), lede de una idea, doble
+  CTA con el duro en dorado. Bajo el pliegue, la banda de cifras de Smartmind
+  (autoridad de la matriz, no resultados de Stratoos) continúa la misma banda.
+  FORM: extensión de una superficie establecida — sistema visual fijo, sin
+  torneo de conceptos (petición precisa, mundo pinchado por el brief).
+
+  ---------------------------------------------------------------------------
+  ESTADO: BORRADOR INTERNO — NO PUBLICABLE
+
+  Igual que la landing corporate v3, la señalización de borrador es este
+  comentario, el prefijo [BORRADOR INTERNO] del <title> y el meta robots
+  noindex. Sin banda visible y sin nota interna al final: réplica exacta del
+  criterio aplicado en 03_FUNNEL_CORPORATE (instrucción expresa de Félix,
+  24 jul 2026).
+
+  Bloqueos vigentes para publicar: validación metodológica de las cifras con
+  producto (equivalente a P0.2) y lista final de clientes + autorización
+  expresa de cada titular para los logos (equivalente a D9 / P0.4).
+
+  ---------------------------------------------------------------------------
+  INVENTARIO DE CIFRAS UTILIZADAS — 5 elementos, todos SIN VALIDAR
+
+  Todas son claims de SMARTMIND (la matriz) sobre su negocio de CONTENIDOS
+  formativos. NINGUNA es un resultado medido del producto Stratoos. Cada una
+  aparece en la landing con atribución expresa a Smartmind en su propio
+  bloque. Trazabilidad completa en
+  04_FUNNEL_PROVEEDORES_B2B/docs/CLAIMS_Y_FUENTES_SMARTMIND_CENTROS_FORMACION.md
+
+  1. "tasas de finalización de hasta un 95%"
+     Fuente C2 · smartmind.net/landing-especialidades-formativas/ (dic-2024).
+     Estado: sin validar. Es un techo ("hasta"), no una media.
+  2. "una media de reducción de un 30% en caídas de alumnos frente a otros
+     proveedores"
+     Fuente C2, coincidente con A2 (email comercial interno) y próxima a B1.
+     A2 añade "según nuestros clientes" = percepción reportada, no medición
+     propia; el matiz se refleja en la nota de la franja. Estado: sin validar.
+  3. "los alumnos que repiten se incrementan hasta un 70%"
+     Fuente B2 · smartmind.net/catalogo-plan-referencia/. La página marca sus
+     cifras como datos de 2022. Vigencia no confirmada. Estado: sin validar.
+  4. "Tasas de caída rara vez superiores al 10%, y en algunos casos tan bajas
+     como el 5%"
+     Fuente A1 · email comercial interno de Smartmind (Convocatoria Estatal
+     Ocupados 24). Estado: sin validar.
+  5. "Disminuyen notablemente el gasto en captación, docencia y licencias de
+     los contenidos"
+     Fuente B7 · smartmind.net/catalogo-plan-referencia/. Cualitativo, citado
+     literal y entrecomillado. Estado: sin validar.
+
+  NO UTILIZADAS, por decisión expresa: "90% de finalización" y "135.000
+  alumnos formados en 2025" (F1/F2 — pertenecen al inventario del funnel
+  Corporate y conviven mal con el "hasta 95%" de C2 en la misma página);
+  "+2.500 cursos" (F3); "14 años" (F4 — contradice "25 años", ver
+  CONTRASTE_LANDINGS_SMARTMIND.md §9); "−90% producción", "−70% gestión del
+  tutor", "menos de 14 días", "diez veces el alcance" (D1–D4 — retirados en
+  la v3 corporate por falta de respaldo documental); cualquier superlativo
+  ("la mejor tasa del mercado"); cualquier testimonio.
+
+  ---------------------------------------------------------------------------
+  DISCIPLINA APLICADA
+
+  · Cero nombres de Studios: esta landing vende resultado (finalización,
+    caída evitada, detección temprana, engagement, evidencia). Los Studios se
+    explican después de la cualificación, no aquí.
+  · Cero clientes reales, cero logotipos, cero testimonios, cero caras.
+  · SEPE / FUNDAE / convocatorias aparecen solo como marco y cualificación,
+    nunca como amenaza normativa ni como promesa de cobertura de trámite.
+  · Todos los CTAs apuntan al formulario Typeform (D3):
+    https://form.typeform.com/to/JOZ8usQ8 (externo, se abre en pestaña nueva).
+    El formulario_demo.html HTML puente queda como borrador de respaldo, ya
+    no enlazado desde la landing.
+  · Standalone. No toca smartmindHub-main/ ni el funnel 03.
+
+  Assets y procedencia: assets/PROCEDENCIA.md
+  Contexto del ICP: 04_FUNNEL_PROVEEDORES_B2B/docs/CONTEXTO_ICP_CENTROS_FORMACION.md
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --burdeos: #7E2437;
+    --burdeos-hover: #6A1E2E;
+    --burdeos-deep: #3C121E;
+    --dorado: #D9A452;
+    --dorado-hover: #C08F3E;
+    --dorado-deep: #8C5A10;
+    --cloud: #F0EEE9;
+    --papel: #FBF8F3;
+    --papel-warm: #F6F2EA;
+    --tinta: #14100E;
+    --tinta-2: #3A342F;
+    --tinta-3: #6B655F;
+    --tinta-4: #A29C95;
+    --border-subtle: #E6E1D8;
+    --border-warm: #DCD2BC;
+
+    /* Geist para todo el texto; mono real reservado a medida y etiqueta */
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+    --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 22px;
+    --r-card: 20px; --r-btn: 14px;
+
+    --shadow-sm: 0 1px 2px rgba(20,16,14,0.06), 0 1px 1px rgba(20,16,14,0.04);
+    --shadow-md: 0 6px 16px -4px rgba(20,16,14,0.10), 0 2px 4px -2px rgba(20,16,14,0.06);
+    /* Sombra de card, registro MSM: elevación suave y difusa, nunca halo plano */
+    --shadow-card: 0 12px 32px -10px rgba(20,16,14,0.16), 0 4px 10px -4px rgba(20,16,14,0.08);
+    --shadow-card-dark: 0 16px 40px -12px rgba(20,16,14,0.45), 0 4px 12px -4px rgba(20,16,14,0.30);
+
+    /* Ritmo vertical y tipografía fluida (mobile-first) */
+    --pad-section: clamp(56px, 10vw, 100px);
+    --wrap-pad: 20px;
+    --fs-h1: clamp(29px, 6.6vw, 46px);
+    --fs-h2: clamp(26px, 6vw, 44px);
+    --fs-h3: clamp(19px, 4.4vw, 24px);
+    --fs-lede: clamp(16px, 3.6vw, 18px);
+
+    /* Cromo sticky */
+    --nav-h: 52px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--papel); color: var(--tinta);
+    font-family: var(--font-sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  img { max-width: 100%; height: auto; }
+  a { color: var(--burdeos); text-decoration: none; }
+  a:hover { color: var(--burdeos-hover); }
+
+  :where(a, .btn, summary, details):focus-visible {
+    outline: 2px solid var(--dorado);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* --- Eyebrow como píldora (registro MSM) --- */
+  .eyebrow {
+    display: flex; align-items: center; gap: 8px;
+    width: max-content; max-width: 100%;
+    margin: 0 0 20px; padding: 7px 15px;
+    border: 1px solid var(--border-warm); border-radius: 100px;
+    background: var(--papel);
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-3);
+  }
+  .eyebrow.on-dark {
+    background: rgba(240,238,233,0.06); border-color: rgba(240,238,233,0.22);
+    color: rgba(240,238,233,0.72);
+  }
+  .eyebrow.center { margin-left: auto; margin-right: auto; }
+
+  /* --- Botones --- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-sans); font-weight: 600; font-size: 15px;
+    min-height: 46px; padding: 12px 26px; border-radius: var(--r-btn);
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .btn-primary-light { background: var(--burdeos); color: var(--papel); }
+  .btn-primary-light:hover { background: var(--burdeos-hover); color: var(--papel); }
+  .btn-primary-gold { background: var(--dorado); color: #1A1108; }
+  .btn-primary-gold:hover { background: var(--dorado-hover); color: #1A1108; }
+  .btn-ghost-dark { color: var(--cloud); border-color: rgba(240,238,233,0.35); }
+  .btn-ghost-dark:hover { background: rgba(240,238,233,0.08); color: var(--cloud); }
+  .btn-ghost-light { color: var(--tinta); border-color: var(--border-warm); background: transparent; }
+  .btn-ghost-light:hover { background: var(--papel-warm); color: var(--tinta); }
+
+  /* Grupos de CTA: apilados a ancho completo en móvil; en fila desde 480px */
+  .ctas, .cta-strip { display: flex; flex-direction: column; gap: 12px; }
+  .ctas > .btn, .cta-strip > .btn { width: 100%; }
+  .cta-strip { margin-top: clamp(36px, 5vw, 48px); }
+
+  /* --- Wrapper --- */
+  .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 var(--wrap-pad); }
+
+  /* --- NAV --- */
+  nav.top { position: sticky; top: 0; z-index: 30; background: rgba(60,18,30,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(240,238,233,0.14); }
+  nav.top .inner { max-width: 1240px; margin: 0 auto; min-height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px var(--wrap-pad); color: var(--cloud); }
+  nav.top .wordmark { display: flex; align-items: center; gap: 10px; color: var(--cloud); min-width: 0; }
+  nav.top .wordmark-img { height: 19px; width: auto; }
+  nav.top .divider { width: 1px; height: 15px; background: rgba(240,238,233,0.28); }
+  nav.top .sub { display: inline-flex; align-items: center; gap: 6px; font-size: 9.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,238,233,0.6); white-space: nowrap; }
+  nav.top .sub img { height: 11px; width: auto; opacity: 0.8; }
+  nav.top .btn { min-height: 40px; padding: 9px 20px; font-size: 13.5px; letter-spacing: 0.01em; border-radius: 100px; white-space: nowrap; }
+  @media (max-width: 400px) { nav.top .divider, nav.top .sub { display: none; } }
+  @media (pointer: coarse) { nav.top .btn { min-height: 44px; } }
+
+  /* --- Franja oscura (hero + tira de referencias, continua) --- */
+  section.hero, section.logos { background: var(--burdeos-deep); color: var(--cloud); }
+
+  /* --- HERO --- */
+  section.hero { position: relative; }
+  section.hero .inner { max-width: 720px; margin: 0 auto; padding: clamp(44px, 9vw, 84px) var(--wrap-pad) clamp(34px, 6vw, 52px); text-align: left; }
+  section.hero h1 { margin: 0 0 18px; font-family: var(--font-sans); font-weight: 300; font-size: var(--fs-h1); line-height: 1.14; letter-spacing: -0.015em; max-width: 20ch; color: var(--cloud); text-wrap: balance; }
+  section.hero h1 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.hero p.lede { margin: 0 0 26px; font-family: var(--font-sans); font-weight: 300; font-size: var(--fs-lede); line-height: 1.7; color: rgba(240,238,233,0.72); max-width: 50ch; text-wrap: pretty; }
+  section.hero .btn { letter-spacing: 0.01em; }
+  /* Botón duro sobre oscuro con leve elevación, como los CTA de MSM */
+  section.hero .btn-primary-gold, section.close .btn-primary-gold { box-shadow: var(--shadow-card-dark); }
+
+  /* --- Referencias del sector: banda oscura con las cifras de Smartmind --- */
+  section.logos { padding: clamp(34px, 6vw, 52px) 0 clamp(34px, 6vw, 52px); border-bottom: 1px solid rgba(240,238,233,0.10); }
+  section.logos .eyebrow { margin-bottom: clamp(24px, 4vw, 34px); }
+  section.logos .metrics { margin-top: 0; }
+
+  /* --- Franja de cifras: filetes de 1px, sin card --- */
+  /* El matiz ("hasta", "media") va en su propia línea mono: es parte de la
+     precisión del claim y no debe competir en ancho con la cifra. */
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; max-width: 1000px; margin: 0 auto; border-top: 1px solid rgba(240,238,233,0.16); }
+  .metrics > div { min-width: 0; padding: 15px 8px 18px; text-align: center; border-left: 1px solid rgba(240,238,233,0.13); }
+  .metrics > div:first-child { border-left: none; }
+  .metrics .q { font-family: var(--font-mono); font-size: 9.5px; line-height: 1.3; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,238,233,0.58); margin-bottom: 6px; }
+  .metrics .n { font-family: var(--font-sans); font-weight: 400; font-size: clamp(19px, 5.2vw, 28px); line-height: 1.05; letter-spacing: -0.01em; color: var(--cloud); white-space: nowrap; }
+  .metrics .l { font-size: 10.5px; line-height: 1.4; color: rgba(240,238,233,0.62); margin-top: 6px; }
+
+  /* --- Nota de atribución bajo la franja de cifras --- */
+  .proof-note { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.6; color: rgba(240,238,233,0.58); text-align: center; margin: 20px auto 0; max-width: 780px; }
+  .proof-note img { height: 11px; width: auto; opacity: 0.75; }
+
+  /* --- Secciones cuerpo (editorial claro) --- */
+  section.block { padding: var(--pad-section) 0; }
+  section.block + section.block { border-top: 1px solid var(--border-subtle); }
+  section.block.warm { background: var(--papel-warm); }
+  section.block h2 { margin: 0 0 18px; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.14; letter-spacing: -0.015em; max-width: 22ch; text-wrap: balance; color: var(--tinta); }
+  section.block h2 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.block p.lede { margin: 0; font-size: var(--fs-lede); line-height: 1.65; color: var(--tinta-2); max-width: 60ch; text-wrap: pretty; }
+
+  /* --- Problemas prioritarios: tarjetas rellenas burdeos (registro MSM) --- */
+  .pains { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: clamp(36px, 6vw, 48px); }
+  .pain {
+    background: var(--burdeos); color: var(--cloud);
+    border-radius: var(--r-card); padding: 30px 26px;
+    box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    text-align: center;
+  }
+  /* Insignia superior: recuadro redondeado con degradado claro + numeral mono (D12, sin iconos) */
+  .pain .p-num {
+    width: 52px; height: 52px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 15px;
+    background: linear-gradient(134deg, var(--papel-warm) 0%, #FFFFFF 100%);
+    border: 1px solid rgba(20,16,14,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    font-family: var(--font-mono); font-size: 17px; font-weight: 500; color: var(--burdeos);
+  }
+  .pain .q { font-family: var(--font-sans); font-weight: 600; font-size: clamp(17px, 4.4vw, 20px); line-height: 1.3; color: var(--cloud); margin: 0; }
+  .pain .a { margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(240,238,233,0.82); }
+  /* --dorado puro sobre burdeos cae a 4,3:1; un punto más claro para el énfasis. */
+  .pain .a strong { color: #E3B366; font-weight: 600; }
+
+  /* --- Reencuadre (pieza-firma: la cuenta de la convocatoria) --- */
+  .reframe { display: grid; grid-template-columns: 1fr; gap: clamp(36px, 6vw, 64px); align-items: center; }
+  .reframe .lede { margin-bottom: 0; }
+  .stack { font-family: var(--font-sans); }
+  .stack .group { position: relative; }
+  .stack .group.added { padding-left: 18px; }
+  .stack .group.added::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; border-radius: 3px; background: var(--dorado); }
+  /* Micro-etiquetas mono en --tinta-3, no --tinta-4: sobre papel cálido,
+     --tinta-4 se queda en 2,4:1 y a 10 px deja de leerse. */
+  .stack .group-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tinta-3); margin: 0 0 8px; }
+  .stack .tier { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 18px; border-radius: var(--r-md); margin-bottom: 8px; }
+  .stack .tier .t-name { font-weight: 600; font-size: 14px; }
+  .stack .tier .t-tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .stack .tier.on { background: var(--burdeos); color: var(--cloud); }
+  /* --dorado sobre --burdeos se queda en 4,3:1; un punto más claro solo aquí. */
+  .stack .tier.on .t-tag { color: #E3B366; }
+  .stack .tier.base { background: var(--papel-warm); color: var(--tinta-2); border: 1px solid var(--border-warm); }
+  .stack .tier.base .t-tag { color: var(--tinta-3); }
+  .stack .join { text-align: center; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tinta-3); padding: 10px 0; }
+  .stack .outcome { margin: 14px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--tinta-3); border-top: 1px solid var(--border-warm); padding-top: 14px; }
+  .stack .outcome strong { color: var(--burdeos); font-weight: 600; }
+  /* Sobre fondo warm, los tiers base necesitan el papel claro para separarse */
+  section.block.warm .stack .tier.base { background: var(--papel); }
+
+  /* --- Cita atribuida a Smartmind, en registro de medida --- */
+  .claim-note { margin: clamp(28px, 5vw, 40px) 0 0; padding-top: 16px; border-top: 1px solid var(--border-warm); font-family: var(--font-mono); font-size: 11.5px; line-height: 1.7; color: var(--tinta-3); max-width: 66ch; }
+  .claim-note q { color: var(--tinta-2); }
+  .claim-note.on-dark { border-color: rgba(240,238,233,0.16); color: rgba(240,238,233,0.45); }
+
+  /* --- Cuatro transformaciones: cards claras con sombra (registro MSM) --- */
+  .transforms { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: clamp(36px, 6vw, 48px); }
+  .transform {
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: 26px 24px; box-shadow: var(--shadow-card);
+  }
+  .transform h3 { margin: 0 0 16px; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .transform dl { margin: 0; }
+  .transform dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-3); margin: 0 0 5px; }
+  .transform dd { margin: 0 0 14px; font-size: 14.5px; line-height: 1.55; color: var(--tinta-2); }
+  .transform dd:last-child { margin-bottom: 0; }
+  /* "Con Stratoos" se separa de "Hoy" con un filete suave */
+  .transform dt.k-next { color: var(--burdeos); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle); }
+  .transform dd.v-next { color: var(--tinta); }
+
+  /* --- Razones: cards claras con etiqueta en píldora (registro MSM) --- */
+  .reasons { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: clamp(36px, 6vw, 48px); }
+  .reason {
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: 26px 24px; box-shadow: var(--shadow-card);
+  }
+  .reason .n {
+    display: inline-flex; align-items: center;
+    font-family: var(--font-mono); font-size: 10px; color: var(--burdeos);
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+    padding: 5px 12px; border-radius: 100px; background: var(--papel-warm);
+    border: 1px solid var(--border-warm); margin-bottom: 14px;
+  }
+  .reason h3 { margin: 0 0 10px; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .reason p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--tinta-2); }
+  .reason p q { color: var(--tinta); font-style: normal; }
+
+  /* --- Cómo seguimos: círculos numerados con hilo discontinuo (registro MSM) --- */
+  .steps { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: clamp(36px, 6vw, 52px); position: relative; }
+  .step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; position: relative; }
+  .step .n {
+    width: 60px; height: 60px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 100px; background: var(--burdeos); color: var(--cloud);
+    font-family: var(--font-mono); font-size: 18px; font-weight: 500; margin: 0;
+    box-shadow: var(--shadow-card); position: relative; z-index: 1;
+  }
+  .step h3 { margin: 0; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--tinta); }
+  .step p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--tinta-2); max-width: 34ch; }
+
+  /* --- FAQ: cajas redondeadas con borde (registro MSM) --- */
+  .faq { display: flex; flex-direction: column; gap: 12px; margin-top: clamp(32px, 5vw, 40px); max-width: 880px; }
+  .faq details {
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    border-radius: var(--r-lg); padding: 4px 24px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .faq details[open] { border-color: var(--burdeos); box-shadow: var(--shadow-card); }
+  .faq summary { list-style: none; cursor: pointer; padding: 20px 0; font-family: var(--font-sans); font-weight: 600; font-size: 16px; color: var(--tinta); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--font-mono); font-size: 22px; line-height: 1; color: var(--burdeos); transition: transform 160ms ease; flex: none; }
+  .faq details[open] summary { color: var(--burdeos); }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { margin: 0; padding: 0 0 22px; font-size: 14.5px; line-height: 1.65; color: var(--tinta-2); max-width: 62ch; }
+
+  /* --- Cierre (2º hero, oscuro) --- */
+  section.close { background: var(--burdeos-deep); color: var(--cloud); }
+  section.close .inner { max-width: 820px; margin: 0 auto; padding: var(--pad-section) var(--wrap-pad); text-align: center; }
+  section.close h2 { margin: 0 auto 18px; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.14; letter-spacing: -0.015em; max-width: 24ch; color: var(--cloud); text-wrap: balance; }
+  section.close h2 em { font-style: normal; font-weight: 600; color: inherit; }
+  section.close p.lede { color: rgba(240,238,233,0.72); max-width: 54ch; margin: 0 auto 28px; font-size: var(--fs-lede); }
+  section.close .ctas { justify-content: center; }
+
+  /* --- Footer --- */
+  footer.foot { background: var(--burdeos-deep); color: rgba(240,238,233,0.7); border-top: 1px solid rgba(240,238,233,0.08); }
+  footer.foot .inner { max-width: 1240px; margin: 0 auto; padding: 36px var(--wrap-pad); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer.foot .brand { display: flex; align-items: center; gap: 12px; color: var(--cloud); font-family: var(--font-display); font-size: 20px; }
+  footer.foot .brand .brand-img { height: 22px; width: auto; }
+  footer.foot .brand .powered { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,238,233,0.62); }
+  footer.foot .brand .powered-img { height: 12px; width: auto; opacity: 0.85; }
+  footer.foot nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  footer.foot nav a, footer.foot nav span.muted { color: rgba(240,238,233,0.7); font-size: 13.5px; }
+  footer.foot nav a:hover { color: var(--cloud); }
+  footer.foot nav span.muted { cursor: default; color: rgba(240,238,233,0.55); }
+
+  /* --- Sticky CTA móvil --- */
+  .sticky-mobile { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(60,18,30,0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid rgba(240,238,233,0.14); box-shadow: 0 -6px 18px rgba(20,16,14,0.3); }
+  .sticky-mobile .btn { width: 100%; justify-content: center; padding: 14px 20px; font-size: 15px; border-radius: var(--r-btn); }
+  @media (max-width: 720px) {
+    .sticky-mobile { display: block; }
+    /* El footer deja hueco para que la barra no tape su última línea */
+    footer.foot .inner { padding-bottom: 92px; }
+  }
+
+  /* =========================================================
+     MOBILE-FIRST: mejoras progresivas con min-width
+     ========================================================= */
+
+  @media (min-width: 480px) {
+    .ctas, .cta-strip { flex-direction: row; flex-wrap: wrap; }
+    .ctas > .btn, .cta-strip > .btn { width: auto; }
+    .metrics > div { padding: 17px 12px 20px; }
+    .logo-strip { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 641px) {
+    .wrap { padding: 0 32px; }
+    :root { --wrap-pad: 32px; }
+  }
+
+  @media (min-width: 768px) {
+    :root { --nav-h: 60px; }
+    /* Hero: composición centrada y contenida */
+    section.hero .inner { text-align: center; }
+    section.hero .eyebrow { margin-left: auto; margin-right: auto; }
+    section.hero h1 { margin-left: auto; margin-right: auto; }
+    section.hero p.lede { margin-left: auto; margin-right: auto; }
+    section.hero .ctas { justify-content: center; }
+    .metrics .l { font-size: 11.5px; }
+    .logo-strip { grid-template-columns: repeat(6, 1fr); }
+
+    .reasons { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pains { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .transforms { grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    /* Pasos en fila con hilo discontinuo pasando por el centro de los círculos */
+    .steps { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .steps::before {
+      content: ""; position: absolute; top: 30px; left: 16%; right: 16%;
+      border-top: 2px dashed var(--border-warm); z-index: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reframe { grid-template-columns: 1.05fr 0.95fr; gap: 72px; }
+    /* Los cuatro problemas en una sola fila, como la tira de cards de MSM */
+    .pains { grid-template-columns: repeat(4, 1fr); }
+    .transforms { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+
+  /* --- Reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="inner">
+    <div class="wordmark">
+      <img class="wordmark-img" src="assets/stratoos-cloud-dancer-transparente.png" alt="Stratoos">
+      <span class="divider"></span>
+      <span class="sub">powered by <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind"></span>
+    </div>
+    <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
+  </div>
+</nav>
+
+<!-- HERO — la economía de la finalización -->
+<section class="hero">
+  <div class="inner">
+    <p class="eyebrow on-dark">Centros de formación · Consultoras · Convocatorias</p>
+    <h1>Solo cobras si <em>terminan.</em> ¿Cuántos se te caen por el camino?</h1>
+    <p class="lede">La captación y la tutoría están pagadas mucho antes de que nadie finalice. Cada alumno que abandona se lleva esa inversión y no deja nada detrás.</p>
+    <div class="ctas">
+      <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
+      <a class="btn btn-ghost-dark" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCIAS DEL SECTOR — cifras de Smartmind (matriz), no de Stratoos.
+     Continúa la banda oscura del hero. Sustituye a la antigua tira de
+     placeholders (instrucción de Félix, 27-jul). -->
+<section class="logos">
+  <div class="wrap">
+    <p class="eyebrow on-dark center">Referencias del sector</p>
+    <div class="metrics">
+      <div><div class="q">hasta</div><div class="n">95 %</div><div class="l">de finalización alcanzada</div></div>
+      <div><div class="q">de media</div><div class="n">−30 %</div><div class="l">en caídas, frente a otros proveedores</div></div>
+      <div><div class="q">hasta</div><div class="n">70 %</div><div class="l">más alumnos que repiten</div></div>
+    </div>
+    <p class="proof-note">Datos de <img src="assets/smartmind-wordmark-cream.png" alt="Smartmind"> sobre sus propios contenidos formativos. El dato de caídas es lo que sus clientes le reportan. No son resultados medidos del producto Stratoos. Sin validación metodológica.</p>
+  </div>
+</section>
+
+<!-- ¿ES ESTO PARA TI? — cualificación por dolor -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Si nada de esto te suena, esta página no es para ti</p>
+    <h2>Lo que se lleva el margen no es el precio. Es <em>quien no termina.</em></h2>
+
+    <div class="pains">
+      <article class="pain">
+        <span class="p-num" aria-hidden="true">01</span>
+        <p class="q">La tasa de caída se come el margen.</p>
+        <p class="a">Cada alumno que abandona son captación, tutoría y licencia <strong>ya pagadas</strong>. El coste está hecho; el ingreso no llega nunca.</p>
+      </article>
+      <article class="pain">
+        <span class="p-num" aria-hidden="true">02</span>
+        <p class="q">El abandono se ve cuando ya no hay nada que hacer.</p>
+        <p class="a">Para cuando un informe muestra que alguien lleva semanas parado, la ventana en la que se le podía recuperar se cerró hace días.</p>
+      </article>
+      <article class="pain">
+        <span class="p-num" aria-hidden="true">03</span>
+        <p class="q">La tutoría no escala al ritmo de las convocatorias.</p>
+        <p class="a">Perseguir actividad, mandar recordatorios y consolidar informes plataforma por plataforma consume horas que, aun así, no evitan la caída.</p>
+      </article>
+      <article class="pain">
+        <span class="p-num" aria-hidden="true">04</span>
+        <p class="q">El engagement del contenido es desigual.</p>
+        <p class="a">Un curso que no engancha se abandona antes. La diferencia entre un módulo y otro acaba apareciendo en la tasa de finalización.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- REENCUADRE (pieza-firma) — la cuenta de la convocatoria -->
+<section class="block warm">
+  <div class="wrap">
+    <div class="reframe">
+      <div>
+        <h2>En tu negocio, la formación no se cobra al inscribir. Se cobra al <em>terminar.</em></h2>
+        <p class="lede">Todo lo que hace falta para que un alumno llegue al final está pagado antes de que llegue. Por eso la finalización no es un indicador de calidad: es la línea que separa el ingreso de la pérdida. Y por eso mover esa línea unos puntos vale más que cualquier ahorro operativo.</p>
+        <p class="claim-note">Smartmind lo formula desde el otro lado: sus contenidos <q>disminuyen notablemente el gasto en captación, docencia y licencias</q>. Claim de Smartmind sobre su catálogo, pendiente de validación.</p>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <div class="group">
+          <p class="group-label">Ya está pagado</p>
+          <div class="tier base"><span class="t-name">Captación del alumno</span><span class="t-tag">Marketing</span></div>
+          <div class="tier base"><span class="t-name">Tutoría y dinamización</span><span class="t-tag">Horas</span></div>
+          <div class="tier base"><span class="t-name">Licencias de contenido</span><span class="t-tag">Por alumno</span></div>
+          <div class="tier base"><span class="t-name">Plataforma y gestión</span><span class="t-tag">Operación</span></div>
+        </div>
+        <div class="join">y solo entonces</div>
+        <div class="group added">
+          <p class="group-label">Se cobra</p>
+          <div class="tier on"><span class="t-name">Cuando el alumno finaliza</span><span class="t-tag">Ingreso</span></div>
+        </div>
+        <p class="outcome">Si abandona, <strong>todo lo de arriba se queda sin lo de abajo.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIN / CON — cuatro puntos donde se decide la finalización -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Qué cambia en la operación</p>
+    <h2>Cuatro puntos donde se decide <em>quién termina.</em></h2>
+
+    <div class="transforms">
+      <article class="transform">
+        <h3>Detectar el riesgo</h3>
+        <dl>
+          <dt>Hoy</dt><dd>El aviso llega con el informe, cuando el alumno ya lleva días parado.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">La actividad de las plataformas conectadas se consolida en una vista común y el alumno en riesgo aparece señalado, no buscado.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Intervenir a tiempo</h3>
+        <dl>
+          <dt>Hoy</dt><dd>El tutor decide a quién escribir con el tiempo que le sobra.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">La intervención llega propuesta y redactada; el tutor la revisa, la ajusta y decide si sale. La IA propone; el tutor decide.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Sostener el engagement</h3>
+        <dl>
+          <dt>Hoy</dt><dd>El alumno avanza pantallas de un módulo lineal y decide solo si vuelve mañana.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">El contenido se convierte en situaciones donde la persona decide y actúa, no solo en material que consume.</dd>
+        </dl>
+      </article>
+      <article class="transform">
+        <h3>Demostrárselo a tu cliente</h3>
+        <dl>
+          <dt>Hoy</dt><dd>Se reporta actividad, progreso y porcentaje de finalización.</dd>
+          <dt class="k-next">Con Stratoos</dt><dd class="v-next">Además de la finalización, queda evidencia de lo que la persona comprende y sabe aplicar. Material que tu cliente puede leer.</dd>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DESPLAZAMIENTO — la conversación con quien ya tiene proveedor -->
+<section class="block warm">
+  <div class="wrap">
+    <p class="eyebrow">La conversación incómoda</p>
+    <h2>Ya tienes una solución contratada. La pregunta no es si <em>funciona.</em></h2>
+    <p class="lede">Es cuánta finalización te está dejando encima de la mesa. Ese número no sale en ningún informe: solo aparece cuando comparas la convocatoria que acabas de ejecutar con lo que era alcanzable en ella.</p>
+
+    <div class="reasons">
+      <article class="reason">
+        <div class="n">El suelo</div>
+        <h3>Hay operaciones con caídas de un dígito.</h3>
+        <p>Smartmind describe en su material comercial <q>tasas de caída rara vez superiores al 10 %, y en algunos casos tan bajas como el 5 %</q> sobre los cursos que suministra. Es el orden de magnitud contra el que conviene mirar la tuya — no un compromiso de Stratoos.</p>
+      </article>
+      <article class="reason">
+        <div class="n">El delta</div>
+        <h3>La diferencia se mide contra tu proveedor actual, no contra cero.</h3>
+        <p>Por eso la primera conversación va sobre una convocatoria concreta que ya hayas ejecutado: qué caída tuvo, en qué semana se produjo y qué se hizo cuando se detectó.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO SEGUIMOS -->
+<section class="block">
+  <div class="wrap">
+    <p class="eyebrow">Cómo seguimos</p>
+    <h2>Empezamos por una convocatoria <em>que ya has ejecutado.</em></h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>Completas el formulario.</h3>
+        <p>Nos dices con qué convocatorias trabajas, qué caída tienes hoy y con qué solución la gestionas.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>Llamada breve.</h3>
+        <p>Revisamos si hay encaje real sobre un caso concreto. No es una presentación de producto.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>Sesión de trabajo.</h3>
+        <p>Si encaja, analizamos una convocatoria real: dónde se produjo la caída y qué señales había antes.</p>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <a class="btn btn-primary-light" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
+      <a class="btn btn-ghost-light" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+  <div class="wrap">
+    <h2>Lo que <em>siempre</em> se pregunta.</h2>
+
+    <div class="faq">
+      <details>
+        <summary>¿Esto sustituye la plataforma donde ejecuto la formación?</summary>
+        <p>No. Stratoos se conecta a las plataformas que ya usas y trabaja sobre ellas. Tus cursos, tus alumnos y tus registros siguen donde están. Si operas con varias a la vez, es precisamente el escenario para el que está pensado.</p>
+      </details>
+      <details>
+        <summary>¿Esto es el contenido de Smartmind o es otra cosa?</summary>
+        <p>Es otra cosa. Smartmind produce y licencia contenido formativo; Stratoos es su vertical de IA y trabaja sobre la operación: consolidar la actividad de las plataformas, señalar al alumno en riesgo, asistir al tutor y dejar evidencia de lo aprendido. Las cifras de finalización de esta página son del contenido de Smartmind, no del producto Stratoos.</p>
+      </details>
+      <details>
+        <summary>¿Sirve si ya trabajo con otro proveedor?</summary>
+        <p>Es el caso habitual: nadie llega aquí sin nada contratado. La conversación no va de sustituir lo que tienes, sino de mirar cuánta caída sigue habiendo con ello puesto y de dónde viene.</p>
+      </details>
+      <details>
+        <summary>¿Y con convocatorias subvencionadas o formación bonificada?</summary>
+        <p>Es el escenario que mejor conocemos, porque es donde el ingreso depende directamente de la finalización. Dicho eso, los requisitos de cada convocatoria los fija su propia normativa: no prometemos cobertura de ningún trámite sin revisarlo contigo primero.</p>
+      </details>
+      <details>
+        <summary>¿La IA escribe a mis alumnos por su cuenta?</summary>
+        <p>No. Detecta, redacta y propone; el tutor revisa, ajusta y decide si algo sale. Las acciones sensibles pasan por revisión humana y quedan registradas.</p>
+      </details>
+      <details>
+        <summary>¿Qué ocurre después del formulario?</summary>
+        <p>Una llamada breve para ver si hay encaje y, si lo hay, una sesión de trabajo sobre una convocatoria concreta. Rellenar el formulario no agenda directamente una demostración.</p>
+      </details>
+      <details>
+        <summary>¿Por dónde se empieza?</summary>
+        <p>Por el punto donde más gente se te cae, no por el catálogo. El sistema es modular: se entra por una necesidad concreta y se amplía cuando tiene sentido.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE (segundo hero) -->
+<section class="close">
+  <div class="inner">
+    <h2>Una convocatoria real encima de la mesa. No otra demo de catálogo.</h2>
+    <p class="lede">Miramos dónde se te fue la gente, en qué semana y con qué señales previas. Si de ahí no sale nada aprovechable, te lo decimos.</p>
+    <div class="ctas">
+      <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
+      <a class="btn btn-ghost-dark" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Más información</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="inner">
+    <div class="brand">
+      <img class="brand-img" src="assets/stratoos-cloud-dancer-transparente.png" alt="Stratoos">
+      <span class="powered">powered by <img class="powered-img" src="assets/smartmind-wordmark-cream.png" alt="Smartmind"></span>
+    </div>
+    <nav>
+      <span class="muted">Privacidad</span>
+      <span class="muted">Aviso legal</span>
+    </nav>
+  </div>
+</footer>
+
+<!-- STICKY CTA MÓVIL -->
+<div class="sticky-mobile">
+  <a class="btn btn-primary-gold" href="https://form.typeform.com/to/JOZ8usQ8" target="_blank" rel="noopener">Solicitar Demo</a>
+</div>
+
+</body>
+</html>
