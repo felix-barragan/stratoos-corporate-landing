@@ -259,11 +259,14 @@
   .date-range.overdue { color: var(--warn); font-weight: 600; }
   .card-x {
     float: right; border: 0; background: none; color: var(--ink-soft);
-    cursor: pointer; font-size: 13px; line-height: 1; padding: 2px;
-    border-radius: 4px; opacity: 0; transition: opacity 120ms ease;
+    cursor: pointer; font-size: 13px; line-height: 1; padding: 6px;
+    margin: -6px -6px 0 0; border-radius: 4px; opacity: 0; transition: opacity 120ms ease;
   }
   .card:hover .card-x { opacity: 0.6; }
   .card-x:hover { opacity: 1 !important; color: var(--warn); }
+  @media (hover: none) {
+    .card-x { opacity: 0.55; }
+  }
   .card-x:focus-visible, .chip:focus-visible, .add-btn:focus-visible,
   select:focus-visible, input:focus-visible, textarea:focus-visible {
     outline: 2px solid var(--gold); outline-offset: 2px;
@@ -442,6 +445,29 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
   }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 640px) {
+    .hero { padding: 20px 16px 18px; }
+    .subtitle { font-size: 13.5px; }
+    .filters {
+      padding: 10px 16px; gap: 6px;
+      overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch;
+    }
+    .chip { font-size: 12px; padding: 6px 11px; }
+    .view-tabs { padding: 0 16px; }
+    main { padding: 16px 16px 48px; }
+    .board { gap: 12px; }
+    .card { padding: 11px 12px 10px; }
+    .card-text { font-size: 14px; }
+    .dialog-inner { padding: 16px; }
+    dialog { width: min(400px, 94vw); max-height: 88vh; overflow-y: auto; }
+    .field-row { grid-template-columns: 1fr; gap: 12px; }
+    /* 16px min font-size on form controls prevents iOS Safari auto-zoom on focus */
+    select, input, textarea { font-size: 16px; padding: 9px 10px; }
+    .btn { padding: 10px 16px; }
+    footer { font-size: 10px; padding: 0 16px; }
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -483,7 +509,7 @@
   </div>
 </main>
 
-<footer id="footer-note">Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.</footer>
+<footer id="footer-note">Arrastra las tarjetas entre columnas en Kanban (o cambia el estado desde el diálogo al tocar una tarjeta), o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.</footer>
 
 <dialog id="add-dialog">
   <div class="dialog-inner">
@@ -503,6 +529,10 @@
     <div class="field">
       <label for="f-owner">Encargado</label>
       <select id="f-owner"></select>
+    </div>
+    <div class="field">
+      <label for="f-status">Estado</label>
+      <select id="f-status"></select>
     </div>
     <div class="field-row">
       <div class="field">
@@ -943,8 +973,18 @@
       ownerSel.appendChild(opt);
     });
 
+    var statusSel = document.getElementById("f-status");
+    statusSel.innerHTML = "";
+    STATUSES.forEach(function (s) {
+      var opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = s.label;
+      statusSel.appendChild(opt);
+    });
+
     campSel.value = editingCard ? editingCard.campaign : CAMPAIGNS[0].id;
     ownerSel.value = editingCard ? editingCard.owner : "";
+    statusSel.value = editingCard ? editingCard.status : pendingStatus;
     document.getElementById("f-channel").value = editingCard ? editingCard.channel : "";
     document.getElementById("f-text").value = editingCard ? editingCard.text : "";
     document.getElementById("f-start").value = editingCard ? editingCard.start : "";
@@ -957,6 +997,7 @@
   document.getElementById("f-save").addEventListener("click", function () {
     var campaign = document.getElementById("f-campaign").value;
     var owner = document.getElementById("f-owner").value;
+    var status = document.getElementById("f-status").value;
     var channel = document.getElementById("f-channel").value.trim();
     var text = document.getElementById("f-text").value.trim();
     var start = document.getElementById("f-start").value;
@@ -969,6 +1010,7 @@
       if (existing) {
         existing.campaign = campaign;
         existing.owner = owner;
+        existing.status = status;
         existing.channel = channel || "Sin canal";
         existing.text = text;
         existing.start = start;
@@ -982,7 +1024,7 @@
         owner: owner,
         channel: channel || "Sin canal",
         text: text,
-        status: pendingStatus,
+        status: status,
         start: start,
         end: end
       };
@@ -1011,7 +1053,7 @@
         document.getElementById("panel-gantt").hidden = currentView !== "gantt";
         document.getElementById("footer-note").textContent = currentView === "gantt"
           ? "Haz clic en una barra, un rombo o una tarea sin fecha para editarla. Los cambios se guardan para todo el equipo."
-          : "Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.";
+          : "Arrastra las tarjetas entre columnas en Kanban (o cambia el estado desde el diálogo al tocar una tarjeta), o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.";
         renderCurrent();
       });
     });
