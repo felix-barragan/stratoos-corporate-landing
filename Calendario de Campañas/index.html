@@ -443,6 +443,7 @@
     * { transition: none !important; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -482,7 +483,7 @@
   </div>
 </main>
 
-<footer id="footer-note">Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan solo en este navegador.</footer>
+<footer id="footer-note">Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.</footer>
 
 <dialog id="add-dialog">
   <div class="dialog-inner">
@@ -522,7 +523,10 @@
 
 <script>
 (function () {
-  var STORAGE_KEY = "kanban-campanas-v3";
+  var SUPABASE_URL = "https://kzmsjovqojkxeuvbochf.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_qE3_ILYWs1pZyCWCyIresQ_XNcnvtsk";
+  var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
   var STATUSES = [
     { id: "todo", label: "Por hacer" },
     { id: "curso", label: "En curso" },
@@ -630,31 +634,98 @@
     return c;
   }
 
-  function loadState() {
-    try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw).map(withDefaults);
-    } catch (e) {}
-    return DEFAULT_CARDS.map(function (c, i) {
-      return withDefaults({
-        id: "c" + i + "-" + Date.now(),
-        campaign: c.campaign,
-        channel: c.channel,
-        text: c.text,
-        status: c.status || "todo",
-        owner: c.owner || "",
-        start: c.start || "",
-        end: c.end || ""
-      });
+  function rowToCard(row) {
+    return withDefaults({
+      id: row.id,
+      campaign: row.campaign,
+      channel: row.channel,
+      text: row.text,
+      status: row.status || "todo",
+      owner: row.owner || "",
+      start: row.start || "",
+      end: row.end || ""
     });
   }
 
-  function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+  function cardToRow(card) {
+    return {
+      id: card.id,
+      campaign: card.campaign,
+      channel: card.channel,
+      text: card.text,
+      status: card.status,
+      owner: card.owner || "",
+      start: card.start || "",
+      end: card.end || ""
+    };
   }
 
-  var cards = loadState();
+  function persistUpsert(card) {
+    db.from("cards").upsert(cardToRow(card)).then(function (res) {
+      if (res.error) console.error("Supabase upsert error:", res.error);
+    });
+  }
+
+  function persistDelete(id) {
+    db.from("cards").delete().eq("id", id).then(function (res) {
+      if (res.error) console.error("Supabase delete error:", res.error);
+    });
+  }
+
+  var cards = [];
   var activeFilter = "all";
+
+  function mergeCard(card) {
+    var i = cards.findIndex(function (c) { return c.id === card.id; });
+    if (i === -1) cards.push(card); else cards[i] = card;
+  }
+
+  function removeCard(id) {
+    cards = cards.filter(function (c) { return c.id !== id; });
+  }
+
+  function subscribeRealtime() {
+    db.channel("cards-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "cards" }, function (payload) {
+        if (payload.eventType === "DELETE") {
+          removeCard(payload.old.id);
+        } else {
+          mergeCard(rowToCard(payload.new));
+        }
+        renderCurrent();
+      })
+      .subscribe();
+  }
+
+  function initCards() {
+    return db.from("cards").select("*").then(function (res) {
+      if (res.error) {
+        console.error("Supabase load error:", res.error);
+        cards = [];
+        return;
+      }
+      if (res.data && res.data.length > 0) {
+        cards = res.data.map(rowToCard);
+        return;
+      }
+      var seeded = DEFAULT_CARDS.map(function (c, i) {
+        return withDefaults({
+          id: "c" + i + "-" + Date.now(),
+          campaign: c.campaign,
+          channel: c.channel,
+          text: c.text,
+          status: c.status || "todo",
+          owner: c.owner || "",
+          start: c.start || "",
+          end: c.end || ""
+        });
+      });
+      cards = seeded;
+      return db.from("cards").insert(seeded.map(cardToRow)).then(function (res2) {
+        if (res2.error) console.error("Supabase seed error:", res2.error);
+      });
+    });
+  }
 
   function filteredCards() {
     if (activeFilter === "all") return cards;
@@ -728,7 +799,7 @@
     x.textContent = "✕";
     x.addEventListener("click", function () {
       cards = cards.filter(function (c) { return c.id !== card.id; });
-      saveState();
+      persistDelete(card.id);
       renderCurrent();
     });
 
@@ -822,7 +893,7 @@
         var card = cards.filter(function (c) { return c.id === id; })[0];
         if (card) {
           card.status = status.id;
-          saveState();
+          persistUpsert(card);
           renderCurrent();
         }
       });
@@ -892,6 +963,7 @@
     var end = document.getElementById("f-end").value;
     if (!text) { document.getElementById("f-text").focus(); return; }
 
+    var savedCard;
     if (editingId) {
       var existing = cards.filter(function (c) { return c.id === editingId; })[0];
       if (existing) {
@@ -902,8 +974,9 @@
         existing.start = start;
         existing.end = end;
       }
+      savedCard = existing;
     } else {
-      cards.push({
+      savedCard = {
         id: "c-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
         campaign: campaign,
         owner: owner,
@@ -912,9 +985,10 @@
         status: pendingStatus,
         start: start,
         end: end
-      });
+      };
+      cards.push(savedCard);
     }
-    saveState();
+    if (savedCard) persistUpsert(savedCard);
     dialog.close();
     renderCurrent();
   });
@@ -936,8 +1010,8 @@
         document.getElementById("panel-kanban").hidden = currentView !== "kanban";
         document.getElementById("panel-gantt").hidden = currentView !== "gantt";
         document.getElementById("footer-note").textContent = currentView === "gantt"
-          ? "Haz clic en una barra, un rombo o una tarea sin fecha para editarla. Los cambios se guardan solo en este navegador."
-          : "Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan solo en este navegador.";
+          ? "Haz clic en una barra, un rombo o una tarea sin fecha para editarla. Los cambios se guardan para todo el equipo."
+          : "Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan para todo el equipo.";
         renderCurrent();
       });
     });
@@ -1131,7 +1205,10 @@
 
   renderFilters();
   setupTabs();
-  renderCurrent();
+  initCards().then(function () {
+    renderCurrent();
+    subscribeRealtime();
+  });
 })();
 </script>
 
