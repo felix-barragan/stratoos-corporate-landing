@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanban — Campañas Stratoos / SmartMind</title>
+<style>
+  :root {
+    /* Tokens del sistema de marca SmartMind/Stratoos (mismos que Landing
+       Centros de Formacion.html: verde/oro/tinta/cloud + Bricolage/Archivo/
+       IBM Plex Mono). El burdeos de Stratoos es una estimación tomada de la
+       captura del índice — no se pudo leer el hex exacto, ver aviso. */
+    --tinta: #14100e;
+    --tinta-2: #3a342f;
+    --tinta-3: #6b655f;
+    --cloud: #f0eee9;
+    --papel: #ffffff;
+    --papel-warm: #f6f4ef;
+    --verde: oklch(0.52 0.140 162);
+    --verde-claro: #7fd4ae;
+    --verde-soft: rgba(46, 139, 94, 0.12);
+    --oliva: #7c8b52;
+    --oliva-soft: rgba(124, 139, 82, 0.14);
+    --burdeos: #4e1626;
+    --burdeos-claro: #d98fa3;
+    --burdeos-soft: rgba(78, 22, 38, 0.10);
+    --oro: #d9a452;
+    --oro-soft: rgba(217, 164, 82, 0.16);
+    --warn: #b5502e;
+    --warn-soft: rgba(181, 80, 46, 0.10);
+    --done: #3a6b6f;
+    --done-soft: rgba(58, 107, 111, 0.10);
+
+    --ink: var(--tinta);
+    --ink-soft: var(--tinta-3);
+    --paper: var(--papel-warm);
+    --paper-raised: var(--papel);
+    --line: rgba(20, 16, 14, 0.12);
+    --line-soft: rgba(20, 16, 14, 0.07);
+    --smartmind: var(--verde);
+    --smartmind-soft: var(--verde-soft);
+    --stratoos: var(--burdeos);
+    --stratoos-soft: var(--burdeos-soft);
+    --abierta: var(--oliva);
+    --abierta-soft: var(--oliva-soft);
+    --gold: var(--oro);
+    --shadow: 0 1px 2px rgba(20,16,14,0.05), 0 8px 20px -12px rgba(20,16,14,0.18);
+    --radius: 10px;
+    --font-display: "Bricolage Grotesque", Avenir, "Century Gothic", -apple-system, "Segoe UI", system-ui, sans-serif;
+    --font-body: Avenir, "Helvetica Neue", -apple-system, "Segoe UI", system-ui, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #f1ede6;
+      --ink-soft: #b8b0a4;
+      --paper: #15130f;
+      --paper-raised: #201c17;
+      --line: rgba(241, 237, 230, 0.12);
+      --line-soft: rgba(241, 237, 230, 0.06);
+      --smartmind: #4fb37e;
+      --smartmind-soft: rgba(79, 179, 126, 0.16);
+      --stratoos: var(--burdeos-claro);
+      --stratoos-soft: rgba(217, 143, 163, 0.14);
+      --abierta: #a3b37e;
+      --abierta-soft: rgba(163, 179, 126, 0.16);
+      --gold: #dcb469;
+      --warn: #e08b63;
+      --warn-soft: rgba(224, 139, 99, 0.14);
+      --done: #6fb3b8;
+      --done-soft: rgba(111, 179, 184, 0.14);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #f1ede6; --ink-soft: #b8b0a4; --paper: #15130f; --paper-raised: #201c17;
+    --line: rgba(241, 237, 230, 0.12); --line-soft: rgba(241, 237, 230, 0.06);
+    --smartmind: #4fb37e; --smartmind-soft: rgba(79, 179, 126, 0.16);
+    --stratoos: var(--burdeos-claro); --stratoos-soft: rgba(217, 143, 163, 0.14);
+    --abierta: #a3b37e; --abierta-soft: rgba(163, 179, 126, 0.16);
+    --gold: #dcb469; --warn: #e08b63; --warn-soft: rgba(224, 139, 99, 0.14);
+    --done: #6fb3b8; --done-soft: rgba(111, 179, 184, 0.14);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 24px -12px rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"] {
+    --ink: var(--tinta); --ink-soft: var(--tinta-3); --paper: var(--papel-warm); --paper-raised: var(--papel);
+    --line: rgba(20, 16, 14, 0.12); --line-soft: rgba(20, 16, 14, 0.07);
+    --smartmind: var(--verde); --smartmind-soft: var(--verde-soft);
+    --stratoos: var(--burdeos); --stratoos-soft: var(--burdeos-soft);
+    --abierta: var(--oliva); --abierta-soft: var(--oliva-soft);
+    --gold: var(--oro); --warn: #b5502e; --warn-soft: rgba(181, 80, 46, 0.10);
+    --done: #3a6b6f; --done-soft: rgba(58, 107, 111, 0.10);
+    --shadow: 0 1px 2px rgba(20,16,14,0.05), 0 8px 20px -12px rgba(20,16,14,0.18);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--font-body); -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body { min-height: 100vh; }
+
+  .hero {
+    background: var(--tinta); color: var(--cloud);
+    padding: 26px clamp(16px, 3vw, 32px) 24px;
+  }
+  :root[data-theme="light"] .hero, .hero { color: var(--cloud); }
+  .hero-inner { max-width: 1400px; margin: 0 auto; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: rgba(240,238,233,0.6); text-decoration: none;
+    margin-bottom: 14px;
+  }
+  .back-link em { font-style: normal; opacity: 0.7; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .eyebrow .dash { display: flex; height: 3px; width: 42px; border-radius: 2px; overflow: hidden; }
+  .eyebrow .dash span:first-child { flex: 1; background: var(--verde-claro); }
+  .eyebrow .dash span:last-child { flex: 1; background: var(--oro); }
+  .eyebrow .label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--oro);
+  }
+  h1 {
+    margin: 0 0 10px; font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(26px, 4.4vw, 40px); letter-spacing: -0.02em; line-height: 1.05;
+    text-wrap: balance; color: var(--cloud);
+  }
+  h1 .accent { color: var(--verde-claro); }
+  .subtitle {
+    margin: 0; font-size: 14.5px; line-height: 1.55; color: rgba(240,238,233,0.68);
+    max-width: 62ch;
+  }
+
+  .filters {
+    max-width: 1400px; margin: 0 auto; padding: 14px clamp(16px, 3vw, 32px) 12px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+  }
+  .chip {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 600;
+    padding: 6px 13px; border-radius: 100px; border: 1px solid var(--line);
+    background: var(--paper-raised); color: var(--ink-soft); cursor: pointer;
+    transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+    white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .chip .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle;
+  }
+
+  main { max-width: 1400px; margin: 0 auto; padding: 20px clamp(16px, 3vw, 32px) 60px; }
+
+  .board {
+    display: grid; grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 16px; align-items: start;
+  }
+  @media (max-width: 900px) {
+    .board { grid-template-columns: 1fr; overflow-x: unset; }
+  }
+
+  .column {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); min-height: 120px;
+    display: flex; flex-direction: column;
+  }
+  .column-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; border-bottom: 1px solid var(--line-soft);
+  }
+  .column-head h2 {
+    margin: 0; font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.09em; text-transform: uppercase; font-weight: 600;
+    color: var(--ink);
+  }
+  .column[data-status="bloqueado"] .column-head { border-bottom-color: var(--warn-soft); }
+  .column[data-status="bloqueado"] .column-head h2 { color: var(--warn); }
+  .column[data-status="hecho"] .column-head h2 { color: var(--done); }
+  .count {
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft);
+    background: var(--line-soft); border-radius: 100px; padding: 1px 7px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cards {
+    flex: 1; padding: 10px; display: flex; flex-direction: column; gap: 8px;
+    min-height: 60px;
+  }
+  .cards.drag-over { background: var(--line-soft); }
+
+  .card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-left: 3px solid var(--ink-soft);
+    border-radius: 8px; padding: 10px 11px 9px; cursor: grab;
+    box-shadow: var(--shadow);
+  }
+  .card.dragging { opacity: 0.4; }
+  .card[data-swatch="smartmind"] { border-left-color: var(--smartmind); }
+  .card[data-swatch="stratoos"] { border-left-color: var(--stratoos); }
+  .card[data-swatch="abierta"] { border-left-color: var(--abierta); }
+  .card[data-swatch="ninguna"] { border-left-color: var(--gold); }
+
+  .card-meta {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 5px;
+    flex-wrap: wrap;
+  }
+  .campaign-tag {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em;
+    font-weight: 600; padding: 1px 6px; border-radius: 4px;
+  }
+  .campaign-tag[data-swatch="smartmind"] { background: var(--smartmind-soft); color: var(--smartmind); }
+  .campaign-tag[data-swatch="stratoos"] { background: var(--stratoos-soft); color: var(--stratoos); }
+  .campaign-tag[data-swatch="abierta"] { background: var(--abierta-soft); color: var(--abierta); }
+  .campaign-tag[data-swatch="ninguna"] { background: var(--gold); color: var(--ink); }
+
+  .priority-pill {
+    font-family: var(--font-mono); font-size: 9.5px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px;
+    border-radius: 100px; border: 1px solid currentColor; opacity: 0.85;
+  }
+  .priority-pill[data-priority="alta"] { color: var(--stratoos); }
+  .priority-pill[data-priority="marcha"] { color: var(--smartmind); }
+  .priority-pill[data-priority="secundaria"] { color: var(--ink-soft); }
+  .channel-tag {
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft);
+  }
+  .card-text {
+    font-size: 13.5px; line-height: 1.42; color: var(--ink); margin-bottom: 7px;
+  }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 6px; padding-top: 6px; border-top: 1px solid var(--line-soft);
+  }
+  .owner-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .owner-chip .avatar {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--line-soft);
+    color: var(--ink); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 8.5px; font-weight: 700;
+    flex: none;
+  }
+  .owner-chip.unassigned { color: var(--ink-soft); font-style: italic; font-weight: 400; }
+  .date-range {
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .date-range.overdue { color: var(--warn); font-weight: 600; }
+  .card-x {
+    float: right; border: 0; background: none; color: var(--ink-soft);
+    cursor: pointer; font-size: 13px; line-height: 1; padding: 2px;
+    border-radius: 4px; opacity: 0; transition: opacity 120ms ease;
+  }
+  .card:hover .card-x { opacity: 0.6; }
+  .card-x:hover { opacity: 1 !important; color: var(--warn); }
+  .card-x:focus-visible, .chip:focus-visible, .add-btn:focus-visible,
+  select:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 2px;
+  }
+
+  .add-row { padding: 4px 10px 10px; }
+  .add-btn {
+    width: 100%; text-align: left; background: none; border: 1px dashed var(--line);
+    border-radius: 8px; padding: 7px 10px; font-family: var(--font-body);
+    font-size: 12.5px; color: var(--ink-soft); cursor: pointer;
+  }
+  .add-btn:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+  dialog {
+    border: 1px solid var(--line); border-radius: 12px; padding: 0;
+    background: var(--paper-raised); color: var(--ink); box-shadow: var(--shadow);
+    width: min(420px, 90vw);
+  }
+  dialog::backdrop { background: rgba(23,19,15,0.45); }
+  .dialog-inner { padding: 20px; }
+  .dialog-inner h3 {
+    margin: 0 0 14px; font-family: var(--font-display); font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  select, input, textarea {
+    font-family: var(--font-body); font-size: 13.5px; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+    padding: 7px 9px; width: 100%;
+  }
+  textarea { resize: vertical; min-height: 50px; }
+  .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+  .btn {
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    padding: 7px 15px; border-radius: 7px; border: 1px solid var(--line);
+    background: var(--paper); color: var(--ink); cursor: pointer;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  footer {
+    max-width: 1400px; margin: 6px auto 0; padding: 0 clamp(16px, 3vw, 32px);
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-soft);
+  }
+
+  /* ---- Pestañas de vista ---- */
+  .view-tabs {
+    max-width: 1400px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 32px);
+    display: flex; gap: 4px; background: var(--paper);
+  }
+  .view-tab {
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    padding: 9px 16px 8px; border: 0; background: none; color: var(--ink-soft);
+    cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .view-tab:hover { color: var(--ink); }
+  .view-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); }
+  .view-panel[hidden] { display: none; }
+
+  /* ---- Gantt ---- */
+  .gantt-note {
+    font-size: 12.5px; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5;
+  }
+  .gantt-wrap {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--paper-raised); overflow-x: auto; box-shadow: var(--shadow);
+  }
+  .gantt-inner { position: relative; }
+  .gantt-months {
+    position: relative; height: 26px; border-bottom: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .gantt-month-label {
+    position: absolute; top: 0; height: 100%; display: flex; align-items: center;
+    padding-left: 6px; font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft);
+    border-left: 1px solid var(--line-soft); box-sizing: border-box;
+  }
+  .gantt-body { position: relative; }
+  .gantt-group-row {
+    display: flex; align-items: stretch; position: sticky; top: 26px; z-index: 4;
+  }
+  .gantt-group-label {
+    position: sticky; left: 0; z-index: 5; width: 280px; flex: none;
+    display: flex; align-items: center;
+    padding: 5px 10px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .gantt-group-label[data-swatch="smartmind"] { background: var(--smartmind-soft); color: var(--smartmind); }
+  .gantt-group-label[data-swatch="stratoos"] { background: var(--stratoos-soft); color: var(--stratoos); }
+  .gantt-group-label[data-swatch="abierta"] { background: var(--abierta-soft); color: var(--abierta); }
+  .gantt-group-label[data-swatch="ninguna"] { background: var(--gold); color: var(--ink); }
+  .gantt-group-track {
+    flex: none; border-bottom: 1px solid var(--line);
+  }
+  .gantt-group-track[data-swatch="smartmind"] { background: var(--smartmind-soft); }
+  .gantt-group-track[data-swatch="stratoos"] { background: var(--stratoos-soft); }
+  .gantt-group-track[data-swatch="abierta"] { background: var(--abierta-soft); }
+  .gantt-group-track[data-swatch="ninguna"] { background: var(--oro-soft); }
+  .gantt-row {
+    display: flex; align-items: stretch; border-bottom: 1px solid var(--line-soft);
+    min-height: 34px;
+  }
+  .gantt-row:hover { background: var(--line-soft); }
+  .gantt-label {
+    position: sticky; left: 0; z-index: 3; width: 280px; flex: none;
+    background: var(--paper-raised); border-right: 1px solid var(--line);
+    padding: 6px 10px; display: flex; flex-direction: column; justify-content: center;
+    gap: 2px;
+  }
+  .gantt-label .lbl-top { display: flex; align-items: center; gap: 6px; }
+  .gantt-label .lbl-text {
+    font-size: 12px; line-height: 1.3; color: var(--ink);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .gantt-track { position: relative; flex: none; }
+  .gantt-today {
+    position: absolute; top: 0; bottom: 0; width: 1px; background: var(--warn);
+    z-index: 2;
+  }
+  .gantt-today::before {
+    content: "hoy"; position: absolute; top: -18px; left: 3px;
+    font-family: var(--font-mono); font-size: 9px; color: var(--warn);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .gantt-bar {
+    position: absolute; top: 6px; height: 22px; border-radius: 6px;
+    display: flex; align-items: center; padding: 0 8px; cursor: pointer;
+    font-size: 11px; font-weight: 600; color: var(--papel); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .gantt-bar[data-status="bloqueado"] {
+    background: repeating-linear-gradient(135deg, var(--warn), var(--warn) 6px, rgba(0,0,0,0.15) 6px, rgba(0,0,0,0.15) 12px);
+  }
+  .gantt-bar[data-status="hecho"] { opacity: 0.55; text-decoration: line-through; }
+  .gantt-milestone {
+    position: absolute; top: 9px; width: 15px; height: 15px; transform: translateX(-50%) rotate(45deg);
+    cursor: pointer; border-radius: 3px; box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .gantt-milestone[data-status="bloqueado"] { outline: 2px solid var(--warn); outline-offset: 1px; }
+  .gantt-milestone[data-status="hecho"] { opacity: 0.55; }
+  .gantt-tip {
+    position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .gantt-nodate {
+    margin-top: 22px;
+  }
+  .gantt-nodate h3 {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .gantt-nodate-list { display: flex; flex-direction: column; gap: 6px; }
+  .gantt-nodate-row {
+    display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+    background: var(--paper-raised); border: 1px solid var(--line); border-radius: 7px;
+    font-size: 12.5px; cursor: pointer;
+  }
+  .gantt-nodate-row:hover { border-color: var(--ink-soft); }
+  .gantt-nodate-row .swatch-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex: none;
+  }
+  .gantt-nodate-row .owner-chip { flex: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="hero">
+  <div class="hero-inner">
+    <a class="back-link" href="../">← Índice del proyecto</a>
+    <div class="eyebrow">
+      <span class="dash"><span></span><span></span></span>
+      <span class="label">Proyecto SmartMind · Stratoos</span>
+    </div>
+    <h1>Calendario de <span class="accent">campañas</span></h1>
+    <p class="subtitle">Un tablero por canal y campaña, con encargado, fechas y prioridad, para
+      las tres colecciones activas: Centros de Formación, Formación abierta y Aprendizaje
+      ilimitado (que absorbe Corporate — la parte de gran cuenta se ataca por outbound/SDR,
+      apoyada por el mismo funnel de Paid en Meta).</p>
+  </div>
+</div>
+
+<div class="view-tabs" role="tablist">
+  <button class="view-tab" role="tab" data-view="kanban" aria-selected="true" type="button">Kanban</button>
+  <button class="view-tab" role="tab" data-view="gantt" aria-selected="false" type="button">Gantt</button>
+</div>
+
+<div class="filters" id="filters"></div>
+
+<main>
+  <div class="view-panel" id="panel-kanban">
+    <div class="board" id="board"></div>
+  </div>
+  <div class="view-panel" id="panel-gantt" hidden>
+    <p class="gantt-note" id="gantt-note"></p>
+    <div class="gantt-wrap">
+      <div class="gantt-inner" id="gantt-inner"></div>
+    </div>
+    <div class="gantt-nodate" id="gantt-nodate"></div>
+  </div>
+</main>
+
+<footer id="footer-note">Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan solo en este navegador.</footer>
+
+<dialog id="add-dialog">
+  <div class="dialog-inner">
+    <h3 id="dialog-title">Nueva tarjeta</h3>
+    <div class="field">
+      <label for="f-campaign">Campaña</label>
+      <select id="f-campaign"></select>
+    </div>
+    <div class="field">
+      <label for="f-channel">Canal</label>
+      <input id="f-channel" type="text" placeholder="p. ej. SEO, Paid: Meta, Mail Marketing" />
+    </div>
+    <div class="field">
+      <label for="f-text">Tarea</label>
+      <textarea id="f-text" placeholder="Describe la tarea"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-owner">Encargado</label>
+      <select id="f-owner"></select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="f-start">Inicio</label>
+        <input id="f-start" type="date" />
+      </div>
+      <div class="field">
+        <label for="f-end">Fin</label>
+        <input id="f-end" type="date" />
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn" id="f-cancel" type="button">Cancelar</button>
+      <button class="btn btn-primary" id="f-save" type="button">Añadir</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var STORAGE_KEY = "kanban-campanas-v3";
+  var STATUSES = [
+    { id: "todo", label: "Por hacer" },
+    { id: "curso", label: "En curso" },
+    { id: "bloqueado", label: "Bloqueado" },
+    { id: "hecho", label: "Hecho" }
+  ];
+
+  var CAMPAIGNS = [
+    { id: "centros", brand: "smartmind", swatch: "smartmind", name: "Centros de Formación / Licencias / Especialidades Formativas", priority: "marcha", priorityLabel: "En marcha" },
+    { id: "ilimitado", brand: "stratoos", swatch: "stratoos", name: "Aprendizaje ilimitado (+ Corporate, outbound)", priority: "alta", priorityLabel: "Prioridad alta" },
+    { id: "abierta", brand: "smartmind", swatch: "abierta", name: "Formación abierta", priority: "secundaria", priorityLabel: "Secundaria" },
+    { id: "sin-asignar", brand: "ninguna", swatch: "ninguna", name: "Sin asignar", priority: "", priorityLabel: "" }
+  ];
+
+  function campaignById(id) {
+    for (var i = 0; i < CAMPAIGNS.length; i++) if (CAMPAIGNS[i].id === id) return CAMPAIGNS[i];
+    return CAMPAIGNS[CAMPAIGNS.length - 1];
+  }
+
+  var OWNERS = [
+    { id: "", label: "Sin asignar", initials: "—" },
+    { id: "pablo-lobato", label: "Pablo Lobato", initials: "PL" },
+    { id: "santiago", label: "Santiago Villar", initials: "SV" },
+    { id: "felix", label: "Félix Barragán", initials: "FB" },
+    { id: "carmen", label: "Carmen", initials: "CM" },
+    { id: "pablo-batres", label: "Pablo Batres", initials: "PB" },
+    { id: "jaime", label: "Jaime", initials: "JA" },
+    { id: "fran", label: "Fran", initials: "FR" },
+    { id: "ricardo", label: "Ricardo", initials: "RR" }
+  ];
+
+  function ownerById(id) {
+    for (var i = 0; i < OWNERS.length; i++) if (OWNERS[i].id === id) return OWNERS[i];
+    return OWNERS[0];
+  }
+
+  function formatDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso + "T00:00:00");
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+  }
+
+  function isOverdue(card) {
+    if (!card.end || card.status === "hecho") return false;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var end = new Date(card.end + "T00:00:00");
+    return end < today;
+  }
+
+  function todayDate() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  function parseISO(iso) { return new Date(iso + "T00:00:00"); }
+  function daysBetween(a, b) { return Math.round((b - a) / 86400000); }
+  function startOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
+  function addDays(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
+  var MONTH_NAMES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+
+  /* Encargado/fechas: solo lo que consta explícita o razonablemente en las
+     actas (ver cambios.md de esta conversación). "aprox" en el texto marca
+     una fecha derivada de un mes citado ("para septiembre"), no un día real
+     dicho en la reunión. */
+  var DEFAULT_CARDS = [
+    { campaign: "centros", channel: "Paid: Meta", text: "Poner en marcha la campaña de Paid en Meta", owner: "felix", end: "2026-09-01" },
+    { campaign: "centros", channel: "Orgánico: FB e IG", text: "Publicaciones orgánicas en Facebook e Instagram", owner: "felix" },
+    { campaign: "centros", channel: "SEO", text: "Auditar el SEO actual", owner: "santiago" },
+    { campaign: "centros", channel: "SEO", text: "Incorporar el nuevo catálogo", owner: "santiago" },
+    { campaign: "centros", channel: "SEO", text: 'Revisar keywords estilo "especialidades formativas"', owner: "santiago" },
+    { campaign: "centros", channel: "SEO", text: "CTAs y formularios en los posts", owner: "santiago" },
+    { campaign: "centros", channel: "SEO", text: "Listar posts en el repo para ir cambiándolos", owner: "santiago" },
+    { campaign: "centros", channel: "GEO", text: "Revisar el FAQhub (ya construido)", owner: "santiago" },
+    { campaign: "centros", channel: "Mail Marketing", text: "Definir y lanzar la secuencia de email marketing", owner: "felix" },
+    { campaign: "centros", channel: "Web/Landing", text: "Decidir en qué dominio va la nueva landing (pendiente con Santiago, dos reuniones seguidas)", owner: "felix", status: "todo" },
+    { campaign: "centros", channel: "Paid: Meta", text: "Bloqueo transversal: 3 hilos de cuenta de Meta sin cerrar (portfolio SmartMind, cuenta Stratos bloqueada, Business Suite sin montar) — impide lanzar Paid de verdad", owner: "santiago", status: "bloqueado" },
+    { campaign: "centros", channel: "Paid: Meta", text: "Bloqueo transversal: GTM con Félix solo en lectura + contenedor nuevo pendiente — sin esto no se mide conversión", owner: "felix", status: "bloqueado" },
+    { campaign: "centros", channel: "SEO", text: "Bloqueo transversal: sección \"estrategia editorial\" del repo rota (pedido a Jaime 3 veces) — impide listar/publicar posts", owner: "jaime", status: "bloqueado" },
+
+    { campaign: "abierta", channel: "Paid: Meta", text: "Poner en marcha la campaña de Paid en Meta", owner: "felix", end: "2026-12-31" },
+    { campaign: "abierta", channel: "SEO", text: "Recuperar formación programada", owner: "santiago" },
+    { campaign: "abierta", channel: "SEO", text: "Banners a tope", owner: "santiago" },
+    { campaign: "abierta", channel: "Orgánico: FB e IG", text: "Publicaciones orgánicas en Facebook e Instagram", owner: "felix" },
+    { campaign: "abierta", channel: "Mail Marketing", text: "Definir y lanzar la secuencia de email marketing", owner: "felix" },
+    { campaign: "abierta", channel: "Web/Landing", text: "Tener lista la landing/web de formación abierta", owner: "", end: "2026-12-31" },
+    { campaign: "abierta", channel: "Paid: Meta", text: "Bloqueo transversal: 3 hilos de cuenta de Meta sin cerrar — impide lanzar Paid de verdad", owner: "santiago", status: "bloqueado" },
+    { campaign: "abierta", channel: "Paid: Meta", text: "Bloqueo transversal: GTM con Félix solo en lectura + contenedor nuevo pendiente", owner: "felix", status: "bloqueado" },
+
+    { campaign: "ilimitado", channel: "Paid: Meta", text: "Poner en marcha la campaña de Paid en Meta — mismo funnel sirve de apoyo al outbound de la parte corporate/gran cuenta", owner: "felix", end: "2026-09-01" },
+    { campaign: "ilimitado", channel: "SEO", text: "Trabajar el SEO de aprendizaje de precisión", owner: "santiago" },
+    { campaign: "ilimitado", channel: "Orgánico: FB e IG", text: "Publicaciones orgánicas en Facebook e Instagram", owner: "felix" },
+    { campaign: "ilimitado", channel: "Outbound: LinkedIn corporativo", text: "Plan de publicaciones de LinkedIn corporativo, para apoyar la prospección de gran cuenta", owner: "fran" },
+    { campaign: "ilimitado", channel: "Outbound: LinkedIn comercial", text: "Plan de publicaciones de LinkedIn comercial, para apoyar la prospección de gran cuenta", owner: "fran" },
+    { campaign: "ilimitado", channel: "Mail Marketing", text: "Definir y lanzar la secuencia de email marketing", owner: "felix" },
+    { campaign: "ilimitado", channel: "Web/Landing", text: "Decidir en qué dominio va la nueva landing (pendiente con Santiago)", owner: "felix", status: "todo" },
+    { campaign: "ilimitado", channel: "Paid: Meta", text: "Bloqueo transversal: 3 hilos de cuenta de Meta sin cerrar — impide lanzar Paid de verdad", owner: "santiago", status: "bloqueado" },
+    { campaign: "ilimitado", channel: "Paid: Meta", text: "Bloqueo transversal: GTM con Félix solo en lectura + contenedor nuevo pendiente", owner: "felix", status: "bloqueado" },
+    { campaign: "ilimitado", channel: "SEO", text: "Bloqueo transversal: sección \"estrategia editorial\" del repo rota (pedido a Jaime 3 veces) — impide listar/publicar posts", owner: "jaime", status: "bloqueado" },
+
+    { campaign: "sin-asignar", channel: "Lead magnets", text: "Definir y producir lead magnets" },
+    { campaign: "sin-asignar", channel: "Recursos", text: "Definir y producir recursos descargables" }
+  ];
+
+  function withDefaults(c) {
+    c.owner = c.owner || "";
+    c.start = c.start || "";
+    c.end = c.end || "";
+    return c;
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw).map(withDefaults);
+    } catch (e) {}
+    return DEFAULT_CARDS.map(function (c, i) {
+      return withDefaults({
+        id: "c" + i + "-" + Date.now(),
+        campaign: c.campaign,
+        channel: c.channel,
+        text: c.text,
+        status: c.status || "todo",
+        owner: c.owner || "",
+        start: c.start || "",
+        end: c.end || ""
+      });
+    });
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+  }
+
+  var cards = loadState();
+  var activeFilter = "all";
+
+  function filteredCards() {
+    if (activeFilter === "all") return cards;
+    if (activeFilter === "smartmind" || activeFilter === "stratoos") {
+      return cards.filter(function (c) { return campaignById(c.campaign).brand === activeFilter; });
+    }
+    return cards.filter(function (c) { return c.campaign === activeFilter; });
+  }
+
+  function renderFilters() {
+    var el = document.getElementById("filters");
+    var defs = [
+      { id: "all", label: "Todas", dot: null }
+    ].concat(
+      [{ id: "smartmind", label: "SmartMind", dot: "var(--smartmind)" },
+       { id: "stratoos", label: "Stratoos", dot: "var(--stratoos)" }],
+      CAMPAIGNS.map(function (c) {
+        return {
+          id: c.id,
+          label: c.name.split(" (")[0].split(" / ")[0],
+          dot: "var(--" + c.swatch + ")",
+          priorityLabel: c.priorityLabel,
+          priority: c.priority
+        };
+      })
+    );
+    el.innerHTML = "";
+    defs.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.className = "chip";
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", String(activeFilter === d.id));
+      var pill = d.priorityLabel ? ' <span class="priority-pill" data-priority="' + d.priority + '">' + d.priorityLabel + "</span>" : "";
+      btn.innerHTML = (d.dot ? '<span class="dot" style="background:' + d.dot + '"></span>' : "") + d.label + pill;
+      btn.addEventListener("click", function () {
+        activeFilter = d.id;
+        renderFilters();
+        renderCurrent();
+      });
+      el.appendChild(btn);
+    });
+  }
+
+  function makeCardEl(card) {
+    var camp = campaignById(card.campaign);
+    var el = document.createElement("div");
+    el.className = "card";
+    el.draggable = true;
+    el.dataset.id = card.id;
+    el.dataset.swatch = camp.swatch;
+
+    var meta = document.createElement("div");
+    meta.className = "card-meta";
+
+    var tag = document.createElement("span");
+    tag.className = "campaign-tag";
+    tag.dataset.swatch = camp.swatch;
+    tag.title = camp.name;
+    tag.textContent = camp.name.length > 28 ? camp.name.split(" (")[0].split(" / ")[0] : camp.name;
+    meta.appendChild(tag);
+
+    var channel = document.createElement("span");
+    channel.className = "channel-tag";
+    channel.textContent = card.channel;
+    meta.appendChild(channel);
+
+    var x = document.createElement("button");
+    x.className = "card-x";
+    x.type = "button";
+    x.title = "Eliminar tarjeta";
+    x.textContent = "✕";
+    x.addEventListener("click", function () {
+      cards = cards.filter(function (c) { return c.id !== card.id; });
+      saveState();
+      renderCurrent();
+    });
+
+    var text = document.createElement("div");
+    text.className = "card-text";
+    text.textContent = card.text;
+
+    var footer = document.createElement("div");
+    footer.className = "card-footer";
+
+    var owner = ownerById(card.owner);
+    var ownerEl = document.createElement("span");
+    ownerEl.className = "owner-chip" + (owner.id ? "" : " unassigned");
+    ownerEl.title = owner.label;
+    if (owner.id) {
+      ownerEl.innerHTML = '<span class="avatar">' + owner.initials + '</span>' + owner.label;
+    } else {
+      ownerEl.textContent = "Sin asignar";
+    }
+    footer.appendChild(ownerEl);
+
+    var range = "";
+    if (card.start && card.end) range = formatDate(card.start) + " → " + formatDate(card.end);
+    else if (card.start) range = "desde " + formatDate(card.start);
+    else if (card.end) range = "hasta " + formatDate(card.end);
+    if (range) {
+      var dateEl = document.createElement("span");
+      dateEl.className = "date-range" + (isOverdue(card) ? " overdue" : "");
+      dateEl.textContent = range;
+      dateEl.title = isOverdue(card) ? "Fecha de fin ya pasada" : "";
+      footer.appendChild(dateEl);
+    }
+
+    el.appendChild(x);
+    el.appendChild(meta);
+    el.appendChild(text);
+    el.appendChild(footer);
+
+    el.addEventListener("click", function (e) {
+      if (e.target === x) return;
+      openDialog(card.status, card.id);
+    });
+
+    el.addEventListener("dragstart", function (e) {
+      el.classList.add("dragging");
+      e.dataTransfer.setData("text/plain", card.id);
+      e.dataTransfer.effectAllowed = "move";
+    });
+    el.addEventListener("dragend", function () { el.classList.remove("dragging"); });
+
+    return el;
+  }
+
+  function renderBoard() {
+    var board = document.getElementById("board");
+    board.innerHTML = "";
+    var visible = filteredCards();
+
+    STATUSES.forEach(function (status) {
+      var col = document.createElement("div");
+      col.className = "column";
+      col.dataset.status = status.id;
+
+      var head = document.createElement("div");
+      head.className = "column-head";
+      var h2 = document.createElement("h2");
+      h2.textContent = status.label;
+      var colCards = visible.filter(function (c) { return c.status === status.id; });
+      var count = document.createElement("span");
+      count.className = "count";
+      count.textContent = colCards.length;
+      head.appendChild(h2);
+      head.appendChild(count);
+      col.appendChild(head);
+
+      var cardsEl = document.createElement("div");
+      cardsEl.className = "cards";
+      cardsEl.dataset.status = status.id;
+
+      colCards.forEach(function (c) { cardsEl.appendChild(makeCardEl(c)); });
+
+      cardsEl.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        cardsEl.classList.add("drag-over");
+      });
+      cardsEl.addEventListener("dragleave", function () { cardsEl.classList.remove("drag-over"); });
+      cardsEl.addEventListener("drop", function (e) {
+        e.preventDefault();
+        cardsEl.classList.remove("drag-over");
+        var id = e.dataTransfer.getData("text/plain");
+        var card = cards.filter(function (c) { return c.id === id; })[0];
+        if (card) {
+          card.status = status.id;
+          saveState();
+          renderCurrent();
+        }
+      });
+
+      col.appendChild(cardsEl);
+
+      var addRow = document.createElement("div");
+      addRow.className = "add-row";
+      var addBtn = document.createElement("button");
+      addBtn.className = "add-btn";
+      addBtn.type = "button";
+      addBtn.textContent = "+ Añadir tarjeta";
+      addBtn.addEventListener("click", function () { openDialog(status.id); });
+      addRow.appendChild(addBtn);
+      col.appendChild(addRow);
+
+      board.appendChild(col);
+    });
+  }
+
+  var dialog = document.getElementById("add-dialog");
+  var pendingStatus = "todo";
+  var editingId = null;
+
+  function openDialog(status, cardId) {
+    pendingStatus = status;
+    editingId = cardId || null;
+    var editingCard = editingId ? cards.filter(function (c) { return c.id === editingId; })[0] : null;
+
+    document.getElementById("dialog-title").textContent = editingCard ? "Editar tarjeta" : "Nueva tarjeta";
+
+    var campSel = document.getElementById("f-campaign");
+    campSel.innerHTML = "";
+    CAMPAIGNS.forEach(function (c) {
+      var opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.name;
+      campSel.appendChild(opt);
+    });
+
+    var ownerSel = document.getElementById("f-owner");
+    ownerSel.innerHTML = "";
+    OWNERS.forEach(function (o) {
+      var opt = document.createElement("option");
+      opt.value = o.id;
+      opt.textContent = o.label;
+      ownerSel.appendChild(opt);
+    });
+
+    campSel.value = editingCard ? editingCard.campaign : CAMPAIGNS[0].id;
+    ownerSel.value = editingCard ? editingCard.owner : "";
+    document.getElementById("f-channel").value = editingCard ? editingCard.channel : "";
+    document.getElementById("f-text").value = editingCard ? editingCard.text : "";
+    document.getElementById("f-start").value = editingCard ? editingCard.start : "";
+    document.getElementById("f-end").value = editingCard ? editingCard.end : "";
+
+    dialog.showModal();
+  }
+
+  document.getElementById("f-cancel").addEventListener("click", function () { dialog.close(); });
+  document.getElementById("f-save").addEventListener("click", function () {
+    var campaign = document.getElementById("f-campaign").value;
+    var owner = document.getElementById("f-owner").value;
+    var channel = document.getElementById("f-channel").value.trim();
+    var text = document.getElementById("f-text").value.trim();
+    var start = document.getElementById("f-start").value;
+    var end = document.getElementById("f-end").value;
+    if (!text) { document.getElementById("f-text").focus(); return; }
+
+    if (editingId) {
+      var existing = cards.filter(function (c) { return c.id === editingId; })[0];
+      if (existing) {
+        existing.campaign = campaign;
+        existing.owner = owner;
+        existing.channel = channel || "Sin canal";
+        existing.text = text;
+        existing.start = start;
+        existing.end = end;
+      }
+    } else {
+      cards.push({
+        id: "c-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+        campaign: campaign,
+        owner: owner,
+        channel: channel || "Sin canal",
+        text: text,
+        status: pendingStatus,
+        start: start,
+        end: end
+      });
+    }
+    saveState();
+    dialog.close();
+    renderCurrent();
+  });
+
+  /* ---- Vistas: Kanban / Gantt ---- */
+  var currentView = "kanban";
+  var DAY_WIDTH = 12;
+
+  function renderCurrent() {
+    if (currentView === "gantt") renderGantt(); else renderBoard();
+  }
+
+  function setupTabs() {
+    var tabs = document.querySelectorAll(".view-tab");
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        currentView = tab.dataset.view;
+        tabs.forEach(function (t) { t.setAttribute("aria-selected", String(t === tab)); });
+        document.getElementById("panel-kanban").hidden = currentView !== "kanban";
+        document.getElementById("panel-gantt").hidden = currentView !== "gantt";
+        document.getElementById("footer-note").textContent = currentView === "gantt"
+          ? "Haz clic en una barra, un rombo o una tarea sin fecha para editarla. Los cambios se guardan solo en este navegador."
+          : "Arrastra las tarjetas entre columnas en Kanban, o haz clic en cualquier tarjeta/barra para editarla. Los cambios se guardan solo en este navegador.";
+        renderCurrent();
+      });
+    });
+  }
+
+  function computeRange() {
+    var dates = [todayDate()];
+    cards.forEach(function (c) {
+      if (c.start) dates.push(parseISO(c.start));
+      if (c.end) dates.push(parseISO(c.end));
+    });
+    var min = new Date(Math.min.apply(null, dates));
+    var max = new Date(Math.max.apply(null, dates));
+    min = startOfMonth(min);
+    max = addDays(startOfMonth(addDays(max, 31)), 0);
+    return { min: min, max: max };
+  }
+
+  function renderGantt() {
+    var visible = filteredCards();
+    var dated = visible.filter(function (c) { return c.start || c.end; });
+    var undated = visible.filter(function (c) { return !c.start && !c.end; });
+
+    document.getElementById("gantt-note").textContent =
+      dated.length + " de " + visible.length + " tareas tienen alguna fecha. El resto se lista debajo, " +
+      "sin inventar un día que nadie dijo — edítalas para añadir fecha y que aparezcan en la línea de tiempo.";
+
+    var range = computeRange();
+    var totalDays = daysBetween(range.min, range.max);
+    var trackWidth = totalDays * DAY_WIDTH;
+
+    var groups = CAMPAIGNS.map(function (camp) {
+      var items = dated.filter(function (c) { return c.campaign === camp.id; });
+      items.sort(function (a, b) {
+        var da = parseISO(a.start || a.end), db = parseISO(b.start || b.end);
+        return da - db;
+      });
+      return { camp: camp, items: items };
+    }).filter(function (g) { return g.items.length > 0; });
+
+    var inner = document.getElementById("gantt-inner");
+    inner.innerHTML = "";
+    inner.style.width = (280 + trackWidth) + "px";
+
+    // Cabecera de meses
+    var monthsRow = document.createElement("div");
+    monthsRow.className = "gantt-months";
+    monthsRow.style.marginLeft = "280px";
+    monthsRow.style.width = trackWidth + "px";
+    var cursor = new Date(range.min);
+    while (cursor < range.max) {
+      var next = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+      var offset = daysBetween(range.min, cursor) * DAY_WIDTH;
+      var width = daysBetween(cursor, next < range.max ? next : range.max) * DAY_WIDTH;
+      var lbl = document.createElement("div");
+      lbl.className = "gantt-month-label";
+      lbl.style.left = offset + "px";
+      lbl.style.width = width + "px";
+      lbl.textContent = MONTH_NAMES[cursor.getMonth()] + " " + cursor.getFullYear();
+      monthsRow.appendChild(lbl);
+      cursor = next;
+    }
+    inner.appendChild(monthsRow);
+
+    var body = document.createElement("div");
+    body.className = "gantt-body";
+
+    if (dated.length === 0) {
+      var empty = document.createElement("p");
+      empty.className = "gantt-note";
+      empty.style.padding = "16px";
+      empty.textContent = "Ninguna tarea visible tiene fecha todavía.";
+      body.appendChild(empty);
+    }
+
+    groups.forEach(function (group) {
+      var camp = group.camp;
+      var groupRow = document.createElement("div");
+      groupRow.className = "gantt-group-row";
+
+      var groupLabel = document.createElement("div");
+      groupLabel.className = "gantt-group-label";
+      groupLabel.dataset.swatch = camp.swatch;
+      groupLabel.textContent = camp.name.split(" (")[0].split(" / ")[0] + " (" + group.items.length + ")";
+      groupRow.appendChild(groupLabel);
+
+      var groupTrack = document.createElement("div");
+      groupTrack.className = "gantt-group-track";
+      groupTrack.dataset.swatch = camp.swatch;
+      groupTrack.style.width = trackWidth + "px";
+      groupRow.appendChild(groupTrack);
+
+      body.appendChild(groupRow);
+
+      group.items.forEach(function (card) {
+      var row = document.createElement("div");
+      row.className = "gantt-row";
+
+      var label = document.createElement("div");
+      label.className = "gantt-label";
+      var top = document.createElement("div");
+      top.className = "lbl-top";
+      var owner = ownerById(card.owner);
+      var ownerEl = document.createElement("span");
+      ownerEl.className = "owner-chip" + (owner.id ? "" : " unassigned");
+      ownerEl.innerHTML = owner.id ? '<span class="avatar">' + owner.initials + "</span>" : "";
+      if (!owner.id) ownerEl.textContent = "—";
+      top.appendChild(ownerEl);
+      label.appendChild(top);
+      var lblText = document.createElement("div");
+      lblText.className = "lbl-text";
+      lblText.title = card.channel + " — " + card.text;
+      lblText.textContent = card.channel + ": " + card.text;
+      label.appendChild(lblText);
+      row.appendChild(label);
+
+      var track = document.createElement("div");
+      track.className = "gantt-track";
+      track.style.width = trackWidth + "px";
+
+      var todayOffset = daysBetween(range.min, todayDate()) * DAY_WIDTH;
+      var todayLine = document.createElement("div");
+      todayLine.className = "gantt-today";
+      todayLine.style.left = todayOffset + "px";
+      track.appendChild(todayLine);
+
+      if (card.start && card.end) {
+        var s = parseISO(card.start), en = parseISO(card.end);
+        var left = daysBetween(range.min, s) * DAY_WIDTH;
+        var w = Math.max(daysBetween(s, en) * DAY_WIDTH, DAY_WIDTH);
+        var bar = document.createElement("div");
+        bar.className = "gantt-bar";
+        bar.dataset.status = card.status;
+        bar.style.left = left + "px";
+        bar.style.width = w + "px";
+        bar.style.background = "var(--" + camp.swatch + ")";
+        bar.textContent = card.text;
+        bar.title = card.channel + ": " + card.text + " (" + formatDate(card.start) + " → " + formatDate(card.end) + ")";
+        bar.addEventListener("click", function () { openDialog(card.status, card.id); });
+        track.appendChild(bar);
+      } else {
+        var only = card.end || card.start;
+        var pos = daysBetween(range.min, parseISO(only)) * DAY_WIDTH;
+        var ms = document.createElement("div");
+        ms.className = "gantt-milestone";
+        ms.dataset.status = card.status;
+        ms.style.left = pos + "px";
+        ms.style.background = "var(--" + camp.swatch + ")";
+        ms.title = card.channel + ": " + card.text + " (" + (card.end ? "fin " : "inicio ") + formatDate(only) + ")";
+        ms.addEventListener("click", function () { openDialog(card.status, card.id); });
+        track.appendChild(ms);
+        var tip = document.createElement("div");
+        tip.className = "gantt-tip";
+        tip.style.left = pos + "px";
+        tip.textContent = formatDate(only);
+        track.appendChild(tip);
+      }
+
+      row.appendChild(track);
+      body.appendChild(row);
+      });
+    });
+
+    inner.appendChild(body);
+
+    var nodateEl = document.getElementById("gantt-nodate");
+    nodateEl.innerHTML = "";
+    if (undated.length) {
+      var h3 = document.createElement("h3");
+      h3.textContent = "Sin fecha (" + undated.length + ")";
+      nodateEl.appendChild(h3);
+      var list = document.createElement("div");
+      list.className = "gantt-nodate-list";
+      undated.forEach(function (card) {
+        var camp = campaignById(card.campaign);
+        var owner = ownerById(card.owner);
+        var row = document.createElement("div");
+        row.className = "gantt-nodate-row";
+        row.innerHTML =
+          '<span class="swatch-dot" style="background:var(--' + camp.swatch + ')"></span>' +
+          '<span class="owner-chip' + (owner.id ? "" : " unassigned") + '">' +
+          (owner.id ? '<span class="avatar">' + owner.initials + "</span>" + owner.label : "Sin asignar") +
+          "</span>" +
+          "<span>" + card.channel + ": " + card.text + "</span>";
+        row.addEventListener("click", function () { openDialog(card.status, card.id); });
+        list.appendChild(row);
+      });
+      nodateEl.appendChild(list);
+    }
+  }
+
+  renderFilters();
+  setupTabs();
+  renderCurrent();
+})();
+</script>
+
+
+</body>
+</html>
